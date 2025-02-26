@@ -21,6 +21,13 @@ class AppTextStyles {
   }
 
   static final TextTheme lightTextTheme = TextTheme(
+    bodySmall: _defaultTextStyle(
+      fontFamily: AppConst.merriweather,
+      fontSize: 16,
+      fontWeight: AppFontWeights.bold,
+      height: 1.3,
+      color: AppColors.gray900,
+    ),
     bodyMedium: _defaultTextStyle(
       fontFamily: AppConst.gelasio,
       fontSize: 18,

@@ -11,7 +11,7 @@ class AppThemes {
   // Define the color scheme for the apps
   static final ColorScheme _colorScheme = ColorScheme.fromSeed(
     primary: AppColors.gray900, // 303030
-    onPrimary: AppColors.gray900,
+    onPrimary: AppColors.gray500,
     secondary: AppColors.gray400, // 909090
     onSecondary: AppColors.gray900,
     primaryContainer: AppColors.gray900,
@@ -70,22 +70,14 @@ class AppThemes {
           fontWeight: AppFontWeights.medium,
         ),
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        prefixIconColor: AppColors.gray500,
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          borderSide: const BorderSide(
-            color: AppColors.gray500,
-            width: 2,
-          ),
-        ),
-      ),
+      // inputDecorationTheme: const InputDecorationTheme(
+      //   enabledBorder: OutlineInputBorder(
+      //     borderSide: BorderSide(color: AppColors.gray200),
+      //   ),
+      //   focusedBorder: OutlineInputBorder(
+      //     borderSide: BorderSide(color: AppColors.gray200),
+      //   ),
+      // ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: AppColors.gray500,
         modalBarrierColor: AppColors.gray500.withOpacity(0.6),
@@ -142,13 +134,11 @@ class AppThemes {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0.0,
-          foregroundColor: AppColors.gray500,
-          backgroundColor: AppColors.gray500,
-          disabledBackgroundColor: colorScheme.surface,
-          disabledForegroundColor: AppColors.black100,
+          foregroundColor: AppColors.black100,
+          backgroundColor: AppColors.black100,
           textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(8.0),
           ),
         ),
       ),
