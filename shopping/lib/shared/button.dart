@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
 
-/// A customizable button widget for the Lotus app.
-class ShopppingButton extends StatelessWidget {
-  // The child of the button
-  final String text;
-  // The callback function when the button is pressed
-  final VoidCallback? onPressed;
-  // The width of the button
-  final double? width;
-  // The height of the button
-  final double? height;
+import '../theme/theme.dart';
 
-  const ShopppingButton({
+/// A customizable button widget for the Lotus app.
+class ShoppingButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  final double? width;
+  final double? height;
+  final double borderRadius;
+
+  const ShoppingButton({
     super.key,
     required this.text,
     this.onPressed,
     this.width,
     this.height,
+    this.borderRadius = 8.0,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? 50,
-      height: height ?? double.infinity,
+      width: width ?? double.infinity,
+      height: height ?? 50,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
         onPressed: onPressed,
         child: Text(
           text,
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.white,
+                fontWeight: AppFontWeights.semiBold,
+              ),
           textAlign: TextAlign.center,
         ),
       ),
