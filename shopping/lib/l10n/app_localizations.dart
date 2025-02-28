@@ -93,167 +93,71 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @send.
+  /// No description provided for @makeYour.
   ///
   /// In en, this message translates to:
-  /// **'Send'**
-  String get send;
+  /// **'MAKE YOUR'**
+  String get makeYour;
 
-  /// No description provided for @use.
+  /// No description provided for @homeBeautiful.
   ///
   /// In en, this message translates to:
-  /// **'Use'**
-  String get use;
+  /// **'HOME BEAUTIFUL'**
+  String get homeBeautiful;
 
-  /// No description provided for @showPassword.
+  /// No description provided for @onboardingDescription.
   ///
   /// In en, this message translates to:
-  /// **'Show Password'**
-  String get showPassword;
+  /// **'The best simple place where you discover most wonderful furnitures and make your home beautiful'**
+  String get onboardingDescription;
 
-  /// No description provided for @signUpPageTitle.
+  /// No description provided for @getStarted.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
-  String get signUpPageTitle;
+  /// **'Get Started'**
+  String get getStarted;
 
-  /// No description provided for @success.
+  /// No description provided for @hello.
   ///
   /// In en, this message translates to:
-  /// **'Success'**
-  String get success;
+  /// **'Hello !'**
+  String get hello;
 
-  /// No description provided for @copyPassword.
+  /// No description provided for @welcome.
   ///
   /// In en, this message translates to:
-  /// **'Copy Password'**
-  String get copyPassword;
+  /// **'WELCOME'**
+  String get welcome;
 
-  /// No description provided for @copyUsername.
+  /// No description provided for @welcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Copy Username'**
-  String get copyUsername;
+  /// **'WELCOME BACK'**
+  String get welcomeBack;
 
-  /// No description provided for @delete.
+  /// No description provided for @email.
   ///
   /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
-  /// No description provided for @back.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// No description provided for @close.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get close;
-
-  /// No description provided for @deletePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Password'**
-  String get deletePassword;
-
-  /// No description provided for @emailExample.
-  ///
-  /// In en, this message translates to:
-  /// **'email@example.com'**
-  String get emailExample;
-
-  /// No description provided for @pleaseAwait.
-  ///
-  /// In en, this message translates to:
-  /// **'Please await'**
-  String get pleaseAwait;
-
-  /// No description provided for @showPasswordTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Password is:'**
-  String get showPasswordTitle;
+  /// **'Email'**
+  String get email;
 
   /// No description provided for @password.
   ///
   /// In en, this message translates to:
-  /// **'password'**
+  /// **'Password'**
   String get password;
 
-  /// No description provided for @manager.
+  /// No description provided for @name.
   ///
   /// In en, this message translates to:
-  /// **'manager'**
-  String get manager;
+  /// **'Name'**
+  String get name;
 
-  /// No description provided for @or.
+  /// No description provided for @confirmPassword.
   ///
   /// In en, this message translates to:
-  /// **'Or'**
-  String get or;
-
-  /// No description provided for @signupTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Create New Account'**
-  String get signupTitle;
-
-  /// No description provided for @headingFirst.
-  ///
-  /// In en, this message translates to:
-  /// **'Transparent & Secured.'**
-  String get headingFirst;
-
-  /// No description provided for @contextFirst.
-  ///
-  /// In en, this message translates to:
-  /// **'Only you can see your personal data'**
-  String get contextFirst;
-
-  /// No description provided for @registerFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Register failed'**
-  String get registerFailed;
-
-  /// No description provided for @alreadyHaveAnAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account?'**
-  String get alreadyHaveAnAccount;
-
-  /// No description provided for @dontHaveAnAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Don`t have an account? '**
-  String get dontHaveAnAccount;
-
-  /// No description provided for @sendEmailVerification.
-  ///
-  /// In en, this message translates to:
-  /// **'Registration successful. Please check your email for verification instructions.'**
-  String get sendEmailVerification;
-
-  /// No description provided for @forgotPasswordTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot your password?'**
-  String get forgotPasswordTitle;
-
-  /// No description provided for @givePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'We have a sent a password recovery instruction to your email'**
-  String get givePassword;
-
-  /// No description provided for @forgotPasswordError.
-  ///
-  /// In en, this message translates to:
-  /// **'Email not found'**
-  String get forgotPasswordError;
+  /// **'Confirm Password'**
+  String get confirmPassword;
 
   /// No description provided for @forgotPassword.
   ///
@@ -261,287 +165,119 @@ abstract class AppLocalizations {
   /// **'Forgot Password'**
   String get forgotPassword;
 
-  /// No description provided for @all.
+  /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
-  /// **'All'**
-  String get all;
+  /// **'SIGN UP'**
+  String get signUp;
 
-  /// No description provided for @recent.
+  /// No description provided for @signIn.
   ///
   /// In en, this message translates to:
-  /// **'Recent'**
-  String get recent;
-
-  /// No description provided for @listPasswordBlank.
-  ///
-  /// In en, this message translates to:
-  /// **'Empty data'**
-  String get listPasswordBlank;
-
-  /// No description provided for @openApp.
-  ///
-  /// In en, this message translates to:
-  /// **'Open App'**
-  String get openApp;
-
-  /// No description provided for @openWeb.
-  ///
-  /// In en, this message translates to:
-  /// **'Open Web'**
-  String get openWeb;
-
-  /// No description provided for @typeCardFirst.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get typeCardFirst;
-
-  /// No description provided for @typeCardSecond.
-  ///
-  /// In en, this message translates to:
-  /// **'Softwares'**
-  String get typeCardSecond;
-
-  /// No description provided for @typeCardThird.
-  ///
-  /// In en, this message translates to:
-  /// **'Credit Card'**
-  String get typeCardThird;
-
-  /// No description provided for @webperts.
-  ///
-  /// In en, this message translates to:
-  /// **'webperts'**
-  String get webperts;
-
-  /// No description provided for @addCardPasswordTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Card Password'**
-  String get addCardPasswordTitle;
-
-  /// No description provided for @save.
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
-
-  /// No description provided for @edit.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit'**
-  String get edit;
-
-  /// No description provided for @cancel.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
-  /// No description provided for @editCardPasswordTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Card Password'**
-  String get editCardPasswordTitle;
+  /// **'SIGN IN'**
+  String get signIn;
 
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **' Login'**
+  /// **' Log in'**
   String get login;
 
-  /// No description provided for @loginFailed.
+  /// No description provided for @alreadyHaveAccount.
   ///
   /// In en, this message translates to:
-  /// **'Login failed'**
-  String get loginFailed;
+  /// **'Already have account?'**
+  String get alreadyHaveAccount;
 
-  /// No description provided for @loginPageTitle.
+  /// No description provided for @makeHome.
   ///
   /// In en, this message translates to:
-  /// **'Log In'**
-  String get loginPageTitle;
+  /// **'Make home'**
+  String get makeHome;
 
-  /// No description provided for @loginTitle.
+  /// No description provided for @beutiful.
   ///
   /// In en, this message translates to:
-  /// **'Log In'**
-  String get loginTitle;
+  /// **'BEAUTIFUL'**
+  String get beutiful;
 
-  /// No description provided for @loginButtonTitle.
+  /// No description provided for @reviews.
   ///
   /// In en, this message translates to:
-  /// **'Sign In'**
-  String get loginButtonTitle;
+  /// **'reviews'**
+  String get reviews;
 
-  /// No description provided for @loginWith.
+  /// No description provided for @addToCart.
   ///
   /// In en, this message translates to:
-  /// **'Login with'**
-  String get loginWith;
+  /// **'Add to cart'**
+  String get addToCart;
 
-  /// No description provided for @logOut.
+  /// No description provided for @addToMyCart.
   ///
   /// In en, this message translates to:
-  /// **'Log Out'**
-  String get logOut;
+  /// **'Add to my cart'**
+  String get addToMyCart;
 
-  /// No description provided for @registerTitle.
+  /// No description provided for @favorites.
   ///
   /// In en, this message translates to:
-  /// **'Register'**
-  String get registerTitle;
+  /// **'Favorites'**
+  String get favorites;
 
-  /// No description provided for @textFieldConfirmPassword.
+  /// No description provided for @emailNotFound.
   ///
   /// In en, this message translates to:
-  /// **'Confirm Password'**
-  String get textFieldConfirmPassword;
+  /// **'Email not found'**
+  String get emailNotFound;
 
-  /// No description provided for @textFieldEmail.
+  /// No description provided for @emptyDate.
   ///
   /// In en, this message translates to:
-  /// **'Email'**
-  String get textFieldEmail;
+  /// **'Empty data'**
+  String get emptyDate;
 
-  /// No description provided for @textFieldPassword.
+  /// No description provided for @emailRequired.
   ///
   /// In en, this message translates to:
-  /// **'Password'**
-  String get textFieldPassword;
+  /// **'Email is required.'**
+  String get emailRequired;
 
-  /// No description provided for @textFieldUsername.
+  /// No description provided for @invalidEmailFormat.
   ///
   /// In en, this message translates to:
-  /// **'Username'**
-  String get textFieldUsername;
+  /// **'Invalid email format.'**
+  String get invalidEmailFormat;
 
-  /// No description provided for @passwordGenerate.
+  /// No description provided for @passwordRequired.
   ///
   /// In en, this message translates to:
-  /// **'Generate Password'**
-  String get passwordGenerate;
+  /// **'Password is required.'**
+  String get passwordRequired;
 
-  /// No description provided for @passwordTypeSelection.
+  /// No description provided for @passwordTooShort.
   ///
   /// In en, this message translates to:
-  /// **'Choose a password type'**
-  String get passwordTypeSelection;
+  /// **'Password must be at least 6 characters long.'**
+  String get passwordTooShort;
 
-  /// No description provided for @moreOptions.
+  /// No description provided for @nameRequired.
   ///
   /// In en, this message translates to:
-  /// **'More options'**
-  String get moreOptions;
+  /// **'Name is required.'**
+  String get nameRequired;
 
-  /// No description provided for @lowercaseSelection.
+  /// No description provided for @confirmPasswordRequired.
   ///
   /// In en, this message translates to:
-  /// **'Lowercase (abc)'**
-  String get lowercaseSelection;
+  /// **'Confirm password is required.'**
+  String get confirmPasswordRequired;
 
-  /// No description provided for @uppercaseSelection.
+  /// No description provided for @confirmPasswordDontMatch.
   ///
   /// In en, this message translates to:
-  /// **'Uppercase (ABC)'**
-  String get uppercaseSelection;
-
-  /// No description provided for @numbersSelection.
-  ///
-  /// In en, this message translates to:
-  /// **'Numbers (123)'**
-  String get numbersSelection;
-
-  /// No description provided for @symbolsSelection.
-  ///
-  /// In en, this message translates to:
-  /// **'Randomized symbols (!#\$)'**
-  String get symbolsSelection;
-
-  /// No description provided for @allowAllCharacters.
-  ///
-  /// In en, this message translates to:
-  /// **'Allow all characters'**
-  String get allowAllCharacters;
-
-  /// No description provided for @anyCharacterCombination.
-  ///
-  /// In en, this message translates to:
-  /// **'Any character combination'**
-  String get anyCharacterCombination;
-
-  /// No description provided for @easyToReadCharacters.
-  ///
-  /// In en, this message translates to:
-  /// **'Easy to read'**
-  String get easyToReadCharacters;
-
-  /// No description provided for @avoidAmbiguousCharacters.
-  ///
-  /// In en, this message translates to:
-  /// **'Avoid ambiguous characters, like o, O, I, i'**
-  String get avoidAmbiguousCharacters;
-
-  /// No description provided for @easyToSayCharacters.
-  ///
-  /// In en, this message translates to:
-  /// **'Easy to say'**
-  String get easyToSayCharacters;
-
-  /// No description provided for @letterSelection.
-  ///
-  /// In en, this message translates to:
-  /// **'Just lowercase and uppercase characters'**
-  String get letterSelection;
-
-  /// No description provided for @existCardPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'CardPassword already exists in the list'**
-  String get existCardPassword;
-
-  /// No description provided for @clipboardCopied.
-  ///
-  /// In en, this message translates to:
-  /// **'Copied to clipboard'**
-  String get clipboardCopied;
-
-  /// No description provided for @usernameWasCopied.
-  ///
-  /// In en, this message translates to:
-  /// **'Username was copied to the clipboard'**
-  String get usernameWasCopied;
-
-  /// No description provided for @passwordWasCopied.
-  ///
-  /// In en, this message translates to:
-  /// **'Password was copied to the clipboard'**
-  String get passwordWasCopied;
-
-  /// No description provided for @verifyEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Please verify your email account'**
-  String get verifyEmail;
-
-  /// No description provided for @invalidInput.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid input. Please check your data and try again.'**
-  String get invalidInput;
-
-  /// No description provided for @forgotPasswordText.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your registered email below to receive password reset'**
-  String get forgotPasswordText;
-
-  /// No description provided for @checkPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Check your password'**
-  String get checkPassword;
+  /// **'Confirm password doesn\'t match.'**
+  String get confirmPasswordDontMatch;
 
   /// No description provided for @messageLogout.
   ///
@@ -549,23 +285,11 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to log out?'**
   String get messageLogout;
 
-  /// No description provided for @messageDelete.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you would like to delete this site?'**
-  String get messageDelete;
-
   /// No description provided for @noInternet.
   ///
   /// In en, this message translates to:
   /// **'No internet connection. Please connect and try again'**
   String get noInternet;
-
-  /// No description provided for @congatulation.
-  ///
-  /// In en, this message translates to:
-  /// **'Congratulations!'**
-  String get congatulation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
