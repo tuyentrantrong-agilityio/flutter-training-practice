@@ -33,7 +33,7 @@ class AppTextStyles {
       fontSize: 18,
       fontWeight: AppFontWeights.regular,
       height: 1.4,
-      color: AppColors.gray400,
+      color: AppColors.gray900,
     ),
     bodyLarge: _defaultTextStyle(
       fontFamily: AppConst.gelasio,
