@@ -16,9 +16,10 @@ class AppThemes {
     onSecondary: AppColors.gray900,
     primaryContainer: AppColors.gray900,
     onPrimaryContainer: AppColors.gray900,
-    surface: AppColors.gray900,
+    surface: AppColors.white,
     onSurface: AppColors.gray900,
     seedColor: AppColors.gray900,
+    background: AppColors.white,
   );
   static final TextTheme _lightTextTheme = AppTextStyles.lightTextTheme;
 
@@ -115,17 +116,14 @@ class AppThemes {
           color: AppColors.gray500,
         ),
       ),
-      // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      //   selectedItemColor: colorScheme.secondary,
-      //   selectedLabelStyle: textTheme.labelSmall,
-      //   unselectedLabelStyle: textTheme.labelSmall,
-      //   selectedIconTheme: const IconThemeData(
-      //     size: 30,
-      //   ),
-      //   unselectedIconTheme: const IconThemeData(
-      //     size: 20,
-      //   ),
-      // ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: AppColors.black100,
+        unselectedItemColor: AppColors.gray200,
+        // selectedFontSize: 24,
+        // unselectedFontSize: 24,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ),
       colorScheme: colorScheme.copyWith(
         surface: colorScheme.surface,
         error: colorScheme.error,

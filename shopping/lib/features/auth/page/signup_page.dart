@@ -19,7 +19,6 @@ class SignUpPage extends StatelessWidget {
     final AppLocalizations l10n = context.intl;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +63,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       child: ShoppingButton(
                         text: l10n.signUp,
-                        onPressed: () => context.pushRoute(const HomeRoute()),
+                        onPressed: () => context.pushRoute(const GuardRoute()),
                       ),
                     ),
                     Row(

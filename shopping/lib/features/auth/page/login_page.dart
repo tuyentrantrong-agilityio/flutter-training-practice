@@ -19,7 +19,6 @@ class LogInPage extends StatelessWidget {
     final AppLocalizations l10n = context.intl;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +80,7 @@ class LogInPage extends StatelessWidget {
                       ),
                       child: ShoppingButton(
                         text: l10n.login,
-                        onPressed: () => context.pushRoute(const HomeRoute()),
+                        onPressed: () => context.pushRoute(const GuardRoute()),
                       ),
                     ),
                     GestureDetector(
