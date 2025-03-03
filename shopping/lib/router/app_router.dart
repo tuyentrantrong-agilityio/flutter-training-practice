@@ -18,8 +18,35 @@ class AppRouter extends $AppRouter {
           page: LogInRoute.page,
         ),
         AutoRoute(
+          path: '/',
+          page: GuardRoute.page,
+          children: [
+            AutoRoute(
+              path: 'home',
+              page: HomeRoute.page,
+              initial: true,
+            ),
+            AutoRoute(
+              path: 'favorites',
+              page: FavoriteRoute.page,
+            ),
+            AutoRoute(
+              path: 'notification',
+              page: NotificationRoute.page,
+            ),
+            AutoRoute(
+              path: 'Profile',
+              page: ProfileRoute.page,
+            ),
+          ],
+        ),
+        AutoRoute(
           path: '/home',
           page: HomeRoute.page,
+        ),
+        AutoRoute(
+          path: '/product',
+          page: ProductRoute.page,
         ),
       ];
 }
