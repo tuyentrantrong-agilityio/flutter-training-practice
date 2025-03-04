@@ -48,5 +48,9 @@ class AppRouter extends $AppRouter {
           path: '/product',
           page: ProductRoute.page,
         ),
+        AutoRoute(
+          path: '/cart',
+          page: CartRoute.page,
+        ),
       ];
 }
