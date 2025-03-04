@@ -207,23 +207,41 @@ abstract class AppLocalizations {
   /// **'reviews'**
   String get reviews;
 
+  /// No description provided for @myCart.
+  ///
+  /// In en, this message translates to:
+  /// **'My cart'**
+  String get myCart;
+
   /// No description provided for @addToCart.
   ///
   /// In en, this message translates to:
   /// **'Add to cart'**
   String get addToCart;
 
-  /// No description provided for @addToMyCart.
+  /// No description provided for @addAllToMyCart.
   ///
   /// In en, this message translates to:
-  /// **'Add to my cart'**
-  String get addToMyCart;
+  /// **'Add all to my cart'**
+  String get addAllToMyCart;
+
+  /// No description provided for @checkOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out'**
+  String get checkOut;
 
   /// No description provided for @favorites.
   ///
   /// In en, this message translates to:
   /// **'Favorites'**
   String get favorites;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notification;
 
   /// No description provided for @emailNotFound.
   ///

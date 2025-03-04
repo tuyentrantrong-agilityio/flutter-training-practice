@@ -4,8 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../router/app_router.gr.dart';
 import '../../../../theme/theme.dart';
-import '../widgets/product_card.dart';
+import '../widgets/overview_card.dart';
 import '../widgets/type_item.dart';
 
 @RoutePage()
@@ -44,7 +45,10 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SvgPicture.asset("assets/images/cart.svg"),
+                  InkWell(
+                    onTap: () => context.pushRoute(const CartRoute()),
+                    child: SvgPicture.asset("assets/images/cart.svg"),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -120,11 +124,14 @@ class HomePage extends StatelessWidget {
                   ),
                   itemCount: 10, // Số lượng item
                   itemBuilder: (context, index) {
-                    return const ProductCard(
-                      name: 'Black Simple Lamp',
-                      image: 'assets/images/product_image.png',
-                      type: 'Chair',
-                      cost: 12.00,
+                    return GestureDetector(
+                      onTap: () => context.pushRoute(const ProductRoute()),
+                      child: const ProductCard(
+                        name: 'Black Simple Lamp',
+                        image: 'assets/images/product_image.png',
+                        type: 'Chair',
+                        cost: 12.00,
+                      ),
                     );
                   },
                 ),

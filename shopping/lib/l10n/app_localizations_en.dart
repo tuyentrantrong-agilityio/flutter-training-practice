@@ -64,13 +64,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviews => 'reviews';
 
   @override
+  String get myCart => 'My cart';
+
+  @override
   String get addToCart => 'Add to cart';
 
   @override
-  String get addToMyCart => 'Add to my cart';
+  String get addAllToMyCart => 'Add all to my cart';
+
+  @override
+  String get checkOut => 'Check out';
 
   @override
   String get favorites => 'Favorites';
+
+  @override
+  String get notification => 'Notification';
 
   @override
   String get emailNotFound => 'Email not found';
