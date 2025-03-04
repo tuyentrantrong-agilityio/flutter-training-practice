@@ -1,69 +1,86 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shopping/shared/product_quantity_section.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 import 'package:shopping/utils/extensions/double_extension.dart';
 
 import '../../../../theme/theme.dart';
+import '../router/app_router.gr.dart';
 
 class ProductCard extends StatelessWidget {
   final String name;
-  final String image;
-  final String type;
-  final double cost;
+  final String imageUrl;
+
+  final double price;
+  final int inventoryQuantity;
 
   const ProductCard({
     super.key,
     required this.name,
-    required this.image,
-    required this.type,
-    required this.cost,
+    required this.imageUrl,
+    required this.price,
+    required this.inventoryQuantity,
   });
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
+    final isCartPage = context.router.current.name != GuardRoute.name;
 
     return SizedBox(
-      width: 157,
-      child: Column(
+      height: 120,
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 157,
-            height: 200,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            width: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: AssetImage(imageUrl),
+                fit: BoxFit.cover,
               ),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset(
-                    'assets/images/add_cart.svg',
-                    width: 30,
-                    height: 30,
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style:
+                      textTheme.labelSmall?.copyWith(color: AppColors.gray600),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  price.toCurrencyFormat,
+                  style: textTheme.labelSmall?.copyWith(
+                    fontWeight: AppFontWeights.bold,
+                    color: AppColors.gray900,
                   ),
                 ),
+                const Spacer(),
+                if (isCartPage)
+                  ProductQuantitySection(inventoryQuantity: inventoryQuantity),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.cancel_outlined,
+                size: 24,
               ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            name,
-            style: textTheme.labelSmall?.copyWith(color: AppColors.gray600),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            cost.toCurrencyFormat,
-            style: textTheme.labelSmall?.copyWith(
-              fontWeight: AppFontWeights.bold,
-              color: AppColors.gray900,
-            ),
+              const Spacer(),
+              if (!isCartPage)
+                SvgPicture.asset(
+                  'assets/images/add_cart.svg',
+                  width: 25,
+                  height: 25,
+                ),
+            ],
           ),
         ],
       ),
