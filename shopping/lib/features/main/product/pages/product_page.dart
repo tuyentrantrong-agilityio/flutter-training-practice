@@ -4,7 +4,7 @@ import 'package:shopping/utils/extensions/extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../../router/app_router.gr.dart';
-import '../../../../shared/button.dart';
+import '../../../../shared/widgets/widget.dart';
 import '../../../../theme/theme.dart';
 
 @RoutePage()
@@ -15,7 +15,6 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -101,8 +100,8 @@ class ProductPage extends StatelessWidget {
                       ),
                       child: const Icon(
                         Icons.bookmark_border_sharp,
-                        // color: AppColors.white,
-                        size: 24,
+                        color: AppColors.black100,
+                        // size: 24,
                       ),
                     ),
                   ),
