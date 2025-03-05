@@ -5,13 +5,13 @@ import 'package:shopping/utils/extensions/double_extension.dart';
 
 import '../../../../theme/theme.dart';
 
-class ProductCard extends StatelessWidget {
+class OverviewCard extends StatelessWidget {
   final String name;
   final String image;
   final String type;
   final double cost;
 
-  const ProductCard({
+  const OverviewCard({
     super.key,
     required this.name,
     required this.image,
