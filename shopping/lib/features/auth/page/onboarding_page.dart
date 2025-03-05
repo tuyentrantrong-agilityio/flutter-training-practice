@@ -62,6 +62,7 @@ class OnboardingPage extends StatelessWidget {
                 text: l10n.getStarted,
                 onPressed: () => context.pushRoute(const LogInRoute()),
                 height: 60,
+                borderRadius: 4,
               ),
             ),
             context.sizedBox(height: 150),
