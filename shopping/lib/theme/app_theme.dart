@@ -36,7 +36,7 @@ class AppThemes {
 
     // Apply Google Fonts to the text styles
     final TextTheme textTheme = AppTextStyles.lightTextTheme;
-    final labelStyle = textTheme.bodyLarge?.copyWith(
+    textTheme.bodyLarge?.copyWith(
       height: 1.2,
       fontSize: 14.0,
       fontWeight: AppFontWeights.semiBold,
@@ -50,27 +50,12 @@ class AppThemes {
       canvasColor: colorScheme.surface,
       scaffoldBackgroundColor: colorScheme.surface,
       cardColor: colorScheme.surface,
-      dividerColor: colorScheme.onSurface.withOpacity(0.12),
+
       dialogBackgroundColor: colorScheme.surface,
       indicatorColor: colorScheme.primary,
       textTheme: textTheme,
       applyElevationOverlayColor: isDark,
-      dialogTheme: DialogTheme(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        titleTextStyle: textTheme.bodyLarge?.copyWith(
-          fontSize: 32.0,
-          height: 1.1,
-          fontWeight: AppFontWeights.medium,
-        ),
-        contentTextStyle: textTheme.bodyLarge?.copyWith(
-          fontSize: 21.0,
-          height: 1.5,
-          fontWeight: AppFontWeights.medium,
-        ),
-      ),
+
       // inputDecorationTheme: const InputDecorationTheme(
       //   enabledBorder: OutlineInputBorder(
       //     borderSide: BorderSide(color: AppColors.gray200),
@@ -79,42 +64,13 @@ class AppThemes {
       //     borderSide: BorderSide(color: AppColors.gray200),
       //   ),
       // ),
-      bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: AppColors.gray500,
-        modalBarrierColor: AppColors.gray500.withOpacity(0.6),
+      iconTheme: const IconThemeData(
+        size: 30,
+        color: AppColors.white,
       ),
-      cardTheme: CardTheme(
-        margin: const EdgeInsets.symmetric(vertical: 4.0),
-        elevation: 0.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        shape: CircleBorder(side: BorderSide(color: Colors.white)),
-        elevation: 4.0,
-        backgroundColor: Color(0xFFF4EFEA),
-      ),
-      tabBarTheme: TabBarTheme(
-        indicator: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        labelPadding: const EdgeInsets.all(6.0),
-        labelStyle: labelStyle,
-        unselectedLabelStyle: labelStyle,
-        labelColor: AppColors.gray900,
-        unselectedLabelColor: AppColors.gray900,
-      ),
-      appBarTheme: AppBarTheme(
-        color: Colors.white,
-        elevation: 0.0,
-        centerTitle: false,
-        titleTextStyle: textTheme.bodyLarge?.copyWith(
-          fontSize: 32.0,
-          fontWeight: AppFontWeights.bold,
-          color: AppColors.gray500,
-        ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.lightGrey,
+        thickness: 0.5,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: AppColors.black100,
@@ -124,11 +80,6 @@ class AppThemes {
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),
-      colorScheme: colorScheme.copyWith(
-        surface: colorScheme.surface,
-        error: colorScheme.error,
-      ),
-      bottomAppBarTheme: BottomAppBarTheme(color: colorScheme.surface),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0.0,
