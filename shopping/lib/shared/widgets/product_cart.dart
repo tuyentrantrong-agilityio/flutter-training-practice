@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shopping/shared/product_quantity_section.dart';
+import 'package:shopping/shared/widgets/product_quantity_section.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 import 'package:shopping/utils/extensions/double_extension.dart';
 
-import '../../../../theme/theme.dart';
-import '../router/app_router.gr.dart';
+import '../../../../../theme/theme.dart';
+import '../../router/app_router.gr.dart';
 
 class ProductCard extends StatelessWidget {
   final String name;
@@ -26,7 +26,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
-    final isCartPage = context.router.current.name != GuardRoute.name;
+    final isCartPage = context.router.current.name == CartRoute.name;
 
     return SizedBox(
       height: 120,
@@ -71,7 +71,7 @@ class ProductCard extends StatelessWidget {
             children: [
               const Icon(
                 Icons.cancel_outlined,
-                size: 24,
+                color: AppColors.gray500,
               ),
               const Spacer(),
               if (!isCartPage)

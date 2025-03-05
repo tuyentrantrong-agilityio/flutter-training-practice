@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/utils/extensions/extension.dart';
 
-import '../theme/theme.dart';
+import '../../theme/theme.dart';
 
 /// A customizable button widget for the Lotus app.
 class ShoppingButton extends StatelessWidget {
@@ -33,10 +34,10 @@ class ShoppingButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.white,
-                fontWeight: AppFontWeights.semiBold,
-              ),
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: AppColors.white,
+            fontWeight: AppFontWeights.semiBold,
+          ),
           textAlign: TextAlign.center,
         ),
       ),
