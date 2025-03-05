@@ -79,6 +79,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favorites => 'Favorites';
 
   @override
+  String get profile => 'Profile';
+
+  @override
   String get notification => 'Notification';
 
   @override
