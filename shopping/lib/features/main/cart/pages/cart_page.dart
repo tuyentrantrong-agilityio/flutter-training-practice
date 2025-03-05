@@ -4,9 +4,7 @@ import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../../router/app_router.gr.dart';
-import '../../../../shared/button.dart';
-import '../../../../shared/layout.dart';
-import '../../../../shared/product_cart.dart';
+import '../../../../shared/widgets/widget.dart';
 
 @RoutePage()
 class CartPage extends StatelessWidget {
@@ -14,31 +12,14 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
-    return SecondLayout(
+    return MainLayout(
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: 12,
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.arrow_back_ios,
-                ),
-                Expanded(
-                  child: Text(
-                    l10n.myCart,
-                    style: textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+          HeaderWidget(
+            leftIcon: Icons.arrow_back_ios,
+            onLeftFunction: () => Navigator.pop(context),
+            title: l10n.myCart,
           ),
           Expanded(
             child: ListView(
@@ -52,7 +33,7 @@ class CartPage extends StatelessWidget {
                   inventoryQuantity: 5,
                 ),
                 SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
+                Divider(),
                 SizedBox(height: 10),
                 ProductCard(
                   name: 'Coffee Chair',
@@ -61,7 +42,7 @@ class CartPage extends StatelessWidget {
                   inventoryQuantity: 10,
                 ),
                 SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
+                Divider(),
                 SizedBox(height: 10),
                 ProductCard(
                   name: 'Minimal Stand',
@@ -70,7 +51,7 @@ class CartPage extends StatelessWidget {
                   inventoryQuantity: 15,
                 ),
                 SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
+                Divider(),
                 SizedBox(height: 10),
                 ProductCard(
                   name: 'Minimal Desk',
@@ -79,7 +60,7 @@ class CartPage extends StatelessWidget {
                   inventoryQuantity: 20,
                 ),
                 SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
+                Divider(),
                 SizedBox(height: 10),
                 ProductCard(
                   name: 'Minimal Desk',
@@ -97,7 +78,7 @@ class CartPage extends StatelessWidget {
               onPressed: () => context.pushRoute(const LogInRoute()),
               height: 60,
             ),
-          )
+          ),
         ],
       ),
     );
