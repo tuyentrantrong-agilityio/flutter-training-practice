@@ -34,7 +34,7 @@ extension Validator on String? {
   }
 
   // Name validation
-  String? validateName(BuildContext context, String name) {
+  String? validateName(BuildContext context) {
     if (this?.isEmpty ?? true) {
       return context.intl.nameRequired;
     }
