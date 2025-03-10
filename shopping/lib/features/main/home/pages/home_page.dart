@@ -1,16 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/utils/extensions/build_context_extension.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shopping/services/category_service.dart';
+import 'package:shopping/shared/extensions/category_extension.dart';
+import 'package:shopping/utils/extensions/extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../models/category.dart';
+import '../../../../models/product.dart';
 import '../../../../router/app_router.gr.dart';
+import '../../../../services/product_service.dart';
 import '../../../../shared/widgets/widget.dart';
 import '../../../../theme/theme.dart';
 import '../widgets/overview_card.dart';
 import '../widgets/type_item.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   const HomePage({super.key});
 
   @override
@@ -47,75 +53,77 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: GridView(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 30.0,
-                  crossAxisCount: 1,
-                ),
-                children: const [
-                  TypeItem(
-                    active: true,
-                    child: Icon(
-                      Icons.star_outlined,
-                    ),
-                  ),
-                  TypeItem(
-                    child: Icon(
-                      Icons.event_seat_outlined,
-                    ),
-                  ),
-                  TypeItem(
-                    child: Icon(
-                      Icons.table_restaurant,
-                    ),
-                  ),
-                  TypeItem(
-                    child: Icon(
-                      Icons.weekend,
-                    ),
-                  ),
-                  TypeItem(
-                    child: Icon(
-                      Icons.king_bed,
-                    ),
-                  ),
-                  TypeItem(
-                    child: Icon(
-                      Icons.light,
-                    ),
-                  ),
-                ],
-              ),
+            FutureBuilder<List<Category>>(
+              future: CategoryService().getAllCategory(),
+              builder: (_, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return Expanded(
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 5.0,
+                          crossAxisCount: 1,
+                        ),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return TypeItem(
+                            title: snapshot.data![index].name,
+                            child: Icon(
+                              snapshot.data![index].icon,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Expanded(
-              flex: 10,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Số cột
-                  // crossAxisSpacing: 30.0, // Khoảng cách giữa các cột
-                  // mainAxisSpacing: 30.0, // Khoảng cách giữa các hàng
-                  childAspectRatio:
-                      0.7, // Tỷ lệ giữa chiều rộng và chiều cao của item
-                ),
-                itemCount: 10, // Số lượng item
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => context.pushRoute(const ProductRoute()),
-                    child: const OverviewCard(
-                      name: 'Black Simple Lamp',
-                      image: 'assets/images/product_image.png',
-                      type: 'Chair',
-                      cost: 12.00,
-                    ),
-                  );
-                },
-              ),
+            FutureBuilder<List<Product>>(
+              future: ProductService().getAllProduct(),
+              builder: (_, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return Expanded(
+                      flex: 9,
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.7,
+                        ),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final product = snapshot.data![index];
+
+                          return GestureDetector(
+                            onTap: () => context
+                                .pushRoute(ProductRoute(product: product)),
+                            child: OverviewCard(
+                              name: product.name,
+                              image: product.imageUrl!,
+                              cost: product.price,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
           ],
         ),

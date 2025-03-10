@@ -8,14 +8,12 @@ import '../../../../theme/theme.dart';
 class OverviewCard extends StatelessWidget {
   final String name;
   final String image;
-  final String type;
   final double cost;
 
   const OverviewCard({
     super.key,
     required this.name,
     required this.image,
-    required this.type,
     required this.cost,
   });
 
@@ -34,7 +32,7 @@ class OverviewCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: AssetImage(image),
+                image: NetworkImage(image),
                 fit: BoxFit.contain,
               ),
             ),
