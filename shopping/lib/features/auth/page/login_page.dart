@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../../providers/auth_provider.dart';
 import '../../../router/app_router.gr.dart';
-import '../../../services/auth_service.dart';
 import '../../../shared/widgets/text_input.dart';
 import '../../../shared/widgets/widget.dart';
 import '../../../theme/theme.dart';
@@ -24,21 +24,21 @@ class LogInPage extends HookConsumerWidget {
     final AppLocalizations l10n = context.intl;
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-
     final isLoading = useState(false);
     final formKey = useMemoized(() => GlobalKey<FormState>());
     void signIn() {
       if (formKey.currentState?.validate() ?? false) {
         isLoading.value = true;
-        AuthService()
+        ref
+            .read(authNotifierProvider.notifier)
             .signIn(
-          email: emailController.text,
-          password: passwordController.text,
-        )
+              emailController.text,
+              passwordController.text,
+            )
             .then((_) {
           isLoading.value = false;
           if (!context.mounted) return;
-          context.pushRoute(const SignUpRoute());
+          context.pushRoute(const GuardRoute());
         }).catchError((error) {
           if (!context.mounted) return;
           context.showTextSnackBar(error.message);

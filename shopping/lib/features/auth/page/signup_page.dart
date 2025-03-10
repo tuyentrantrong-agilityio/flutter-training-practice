@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../../providers/auth_provider.dart';
 import '../../../router/app_router.gr.dart';
-import '../../../services/auth_service.dart';
 import '../../../shared/widgets/text_input.dart';
 import '../../../shared/widgets/widget.dart';
 import '../../../theme/theme.dart';
@@ -32,12 +32,13 @@ class SignUpPage extends HookConsumerWidget {
     void signUp() {
       if (formKey.currentState?.validate() ?? false) {
         isLoading.value = true;
-        AuthService()
+        ref
+            .read(authNotifierProvider.notifier)
             .signUp(
-          email: emailController.text,
-          password: passwordController.text,
-          name: nameController.text,
-        )
+              emailController.text,
+              passwordController.text,
+              nameController.text,
+            )
             .then((result) {
           isLoading.value = false;
           if (!context.mounted) return;
@@ -51,6 +52,8 @@ class SignUpPage extends HookConsumerWidget {
     }
 
     return MainLayout(
+      hasScrollView: true,
+      scrollController: ScrollController(),
       body: Form(
         key: formKey,
         child: Column(
