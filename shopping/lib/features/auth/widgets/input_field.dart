@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/utils/extensions/build_context_extension.dart';
-
-import '../../../theme/theme.dart';
+import 'package:shopping/utils/extensions/extension.dart';
 
 class InputField extends StatelessWidget {
   final String label;
-  const InputField({super.key, required this.label});
+  final Widget child;
+
+  const InputField({
+    super.key,
+    required this.label,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +21,7 @@ class InputField extends StatelessWidget {
           style: context.textTheme.labelSmall,
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          decoration: const InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.gray200),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.gray200),
-            ),
-          ),
-        ),
+        child,
       ],
     );
   }
