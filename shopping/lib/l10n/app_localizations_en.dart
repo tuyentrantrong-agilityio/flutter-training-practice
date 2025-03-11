@@ -7,239 +7,113 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get send => 'Send';
+  String get makeYour => 'MAKE YOUR';
 
   @override
-  String get use => 'Use';
+  String get homeBeautiful => 'HOME BEAUTIFUL';
 
   @override
-  String get showPassword => 'Show Password';
+  String get onboardingDescription => 'The best simple place where you discover most wonderful furnitures and make your home beautiful';
 
   @override
-  String get signUpPageTitle => 'Sign Up';
+  String get getStarted => 'Get Started';
 
   @override
-  String get success => 'Success';
+  String get hello => 'Hello !';
 
   @override
-  String get copyPassword => 'Copy Password';
+  String get welcome => 'WELCOME';
 
   @override
-  String get copyUsername => 'Copy Username';
+  String get welcomeBack => 'WELCOME BACK';
 
   @override
-  String get delete => 'Delete';
+  String get email => 'Email';
 
   @override
-  String get back => 'Back';
+  String get password => 'Password';
 
   @override
-  String get close => 'Close';
+  String get name => 'Name';
 
   @override
-  String get deletePassword => 'Delete Password';
-
-  @override
-  String get emailExample => 'email@example.com';
-
-  @override
-  String get pleaseAwait => 'Please await';
-
-  @override
-  String get showPasswordTitle => 'Your Password is:';
-
-  @override
-  String get password => 'password';
-
-  @override
-  String get manager => 'manager';
-
-  @override
-  String get or => 'Or';
-
-  @override
-  String get signupTitle => 'Create New Account';
-
-  @override
-  String get headingFirst => 'Transparent & Secured.';
-
-  @override
-  String get contextFirst => 'Only you can see your personal data';
-
-  @override
-  String get registerFailed => 'Register failed';
-
-  @override
-  String get alreadyHaveAnAccount => 'Already have an account?';
-
-  @override
-  String get dontHaveAnAccount => 'Don`t have an account? ';
-
-  @override
-  String get sendEmailVerification => 'Registration successful. Please check your email for verification instructions.';
-
-  @override
-  String get forgotPasswordTitle => 'Forgot your password?';
-
-  @override
-  String get givePassword => 'We have a sent a password recovery instruction to your email';
-
-  @override
-  String get forgotPasswordError => 'Email not found';
+  String get confirmPassword => 'Confirm Password';
 
   @override
   String get forgotPassword => 'Forgot Password';
 
   @override
-  String get all => 'All';
+  String get signUp => 'SIGN UP';
 
   @override
-  String get recent => 'Recent';
+  String get signIn => 'SIGN IN';
 
   @override
-  String get listPasswordBlank => 'Empty data';
+  String get login => ' Log in';
 
   @override
-  String get openApp => 'Open App';
+  String get alreadyHaveAccount => 'Already have account?';
 
   @override
-  String get openWeb => 'Open Web';
+  String get makeHome => 'Make home';
 
   @override
-  String get typeCardFirst => 'Favorites';
+  String get beutiful => 'BEAUTIFUL';
 
   @override
-  String get typeCardSecond => 'Softwares';
+  String get reviews => 'reviews';
 
   @override
-  String get typeCardThird => 'Credit Card';
+  String get myCart => 'My cart';
 
   @override
-  String get webperts => 'webperts';
+  String get addToCart => 'Add to cart';
 
   @override
-  String get addCardPasswordTitle => 'Add Card Password';
+  String get addAllToMyCart => 'Add all to my cart';
 
   @override
-  String get save => 'Save';
+  String get checkOut => 'Check out';
 
   @override
-  String get edit => 'Edit';
+  String get favorites => 'Favorites';
 
   @override
-  String get cancel => 'Cancel';
+  String get profile => 'Profile';
 
   @override
-  String get editCardPasswordTitle => 'Edit Card Password';
+  String get notification => 'Notification';
 
   @override
-  String get login => ' Login';
+  String get emailNotFound => 'Email not found';
 
   @override
-  String get loginFailed => 'Login failed';
+  String get emptyDate => 'Empty data';
 
   @override
-  String get loginPageTitle => 'Log In';
+  String get emailRequired => 'Email is required.';
 
   @override
-  String get loginTitle => 'Log In';
+  String get invalidEmailFormat => 'Invalid email format.';
 
   @override
-  String get loginButtonTitle => 'Sign In';
+  String get passwordRequired => 'Password is required.';
 
   @override
-  String get loginWith => 'Login with';
+  String get passwordTooShort => 'Password must be at least 6 characters long.';
 
   @override
-  String get logOut => 'Log Out';
+  String get nameRequired => 'Name is required.';
 
   @override
-  String get registerTitle => 'Register';
+  String get confirmPasswordRequired => 'Confirm password is required.';
 
   @override
-  String get textFieldConfirmPassword => 'Confirm Password';
-
-  @override
-  String get textFieldEmail => 'Email';
-
-  @override
-  String get textFieldPassword => 'Password';
-
-  @override
-  String get textFieldUsername => 'Username';
-
-  @override
-  String get passwordGenerate => 'Generate Password';
-
-  @override
-  String get passwordTypeSelection => 'Choose a password type';
-
-  @override
-  String get moreOptions => 'More options';
-
-  @override
-  String get lowercaseSelection => 'Lowercase (abc)';
-
-  @override
-  String get uppercaseSelection => 'Uppercase (ABC)';
-
-  @override
-  String get numbersSelection => 'Numbers (123)';
-
-  @override
-  String get symbolsSelection => 'Randomized symbols (!#\$)';
-
-  @override
-  String get allowAllCharacters => 'Allow all characters';
-
-  @override
-  String get anyCharacterCombination => 'Any character combination';
-
-  @override
-  String get easyToReadCharacters => 'Easy to read';
-
-  @override
-  String get avoidAmbiguousCharacters => 'Avoid ambiguous characters, like o, O, I, i';
-
-  @override
-  String get easyToSayCharacters => 'Easy to say';
-
-  @override
-  String get letterSelection => 'Just lowercase and uppercase characters';
-
-  @override
-  String get existCardPassword => 'CardPassword already exists in the list';
-
-  @override
-  String get clipboardCopied => 'Copied to clipboard';
-
-  @override
-  String get usernameWasCopied => 'Username was copied to the clipboard';
-
-  @override
-  String get passwordWasCopied => 'Password was copied to the clipboard';
-
-  @override
-  String get verifyEmail => 'Please verify your email account';
-
-  @override
-  String get invalidInput => 'Invalid input. Please check your data and try again.';
-
-  @override
-  String get forgotPasswordText => 'Enter your registered email below to receive password reset';
-
-  @override
-  String get checkPassword => 'Check your password';
+  String get confirmPasswordDontMatch => 'Confirm password doesn\'t match.';
 
   @override
   String get messageLogout => 'Are you sure you want to log out?';
 
   @override
-  String get messageDelete => 'Are you sure you would like to delete this site?';
-
-  @override
   String get noInternet => 'No internet connection. Please connect and try again';
-
-  @override
-  String get congatulation => 'Congratulations!';
 }

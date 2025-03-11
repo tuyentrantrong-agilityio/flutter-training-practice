@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/theme/app_font_weights.dart';
-import 'package:shopping/utils/extensions/build_context_extension.dart';
+import 'package:shopping/utils/extensions/extension.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../../router/app_router.gr.dart';
-import '../../../shared/button.dart';
+import '../../../shared/widgets/button.dart';
+import '../../../theme/theme.dart';
 
 @RoutePage()
 class OnboardingPage extends StatelessWidget {
@@ -15,10 +15,11 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: context.padding(horizontal: 30),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/onboarding.png"),
@@ -26,9 +27,9 @@ class OnboardingPage extends StatelessWidget {
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            context.sizedBox(height: 250),
             Text(
               l10n.makeYour,
               style: textTheme.bodyLarge,
@@ -41,24 +42,30 @@ class OnboardingPage extends StatelessWidget {
                 fontSize: 30,
               ),
             ),
-            const SizedBox(height: 30),
-            Text(
-              l10n.onboardingDescription,
-              textAlign: TextAlign.justify,
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: AppFontWeights.regular,
-                height: 1.9,
-                color: context.colorScheme.onPrimary,
+            context.sizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                l10n.onboardingDescription,
+                textAlign: TextAlign.justify,
+                style: textTheme.labelMedium?.copyWith(
+                  fontWeight: AppFontWeights.regular,
+                  height: 1.9,
+                  color: context.colorScheme.onPrimary,
+                ),
               ),
             ),
+            const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 54, vertical: 50),
+              padding: context.padding(horizontal: 80),
               child: ShoppingButton(
                 text: l10n.getStarted,
                 onPressed: () => context.pushRoute(const LogInRoute()),
                 height: 60,
+                borderRadius: 4,
               ),
             ),
+            context.sizedBox(height: 150),
           ],
         ),
       ),
