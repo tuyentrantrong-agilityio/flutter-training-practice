@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ProductQuantitySection extends HookWidget {
+  final int quantity;
   final int inventoryQuantity;
   const ProductQuantitySection({
     super.key,
+    this.quantity = 1,
     required this.inventoryQuantity,
   });
 
   @override
   Widget build(BuildContext context) {
-    final _quantity = useState(1);
+    final _quantity = useState(quantity);
 
     return Row(
       children: [
