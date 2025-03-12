@@ -3,13 +3,9 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../models/user.dart';
 import '../repositories/auth_repository.dart';
-import '../services/auth_service.dart';
+import 'repository_provider.dart';
 
 part 'auth_provider.g.dart';
-
-@Riverpod(keepAlive: true)
-AuthRepository authService(AuthServiceRef ref) =>
-    AuthRepositoryImpl(AuthService());
 
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
@@ -19,7 +15,10 @@ class AuthNotifier extends _$AuthNotifier {
   User build() {
     _authService = ref.read(authServiceProvider);
     // fetchUser();
-    return const User(username: '', email: '', password: '');
+    return const User(
+      username: '',
+      email: '',
+    );
   }
 
   // Future<void> fetchUser() async {
