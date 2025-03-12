@@ -9,7 +9,6 @@ class User with _$User {
     @JsonKey(name: 'user_id') int? userId,
     required String username,
     required String email,
-    required String password,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _User;
 
