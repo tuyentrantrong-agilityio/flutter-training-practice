@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'supabase_init.dart';
 
 class AuthService {
@@ -33,6 +32,31 @@ class AuthService {
     } catch (e) {
       // Handle sign in error
       debugPrint('Sign in error: $e');
+      rethrow;
+    }
+  }
+
+  Future<bool> isLogin() async {
+    try {
+      final session = await supabaseClient.auth.currentSession;
+      if (session != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      // Handle sign out error
+      debugPrint('Sign out error: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch (e) {
+      // Handle sign out error
+      debugPrint('Sign out error: $e');
       rethrow;
     }
   }
