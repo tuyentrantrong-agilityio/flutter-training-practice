@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../models/user.dart';
 import '../repositories/auth_repository.dart';
+import '../services/storage/storage.dart';
+import '../services/supabase_init.dart';
 import 'repository_provider.dart';
 
 part 'auth_provider.g.dart';
@@ -14,38 +16,41 @@ class AuthNotifier extends _$AuthNotifier {
   @override
   User build() {
     _authService = ref.read(authServiceProvider);
-    // fetchUser();
+    fetchUser();
     return const User(
       username: '',
       email: '',
+      userId: '',
     );
   }
 
-  // Future<void> fetchUser() async {
-  //   try {
-  //     final session = await Amplify.Auth.fetchAuthSession();
-  //     if (session.isSignedIn) {
-  //       final user = await Amplify.Auth.getCurrentUser();
-  //       Debug.log.d(user.signInDetails);
-  //       final email =
-  //           (user.signInDetails as auth.CognitoSignInDetailsApiBased).username;
-  //       UserStorage.setUserId(user.username);
-  //       UserStorage.setUserEmail(email);
-  //       final userSetting = await _authService.getUserSettings();
-  //       Debug.log.d("user ID: ${user.userId}");
-  //       state = UserAuthState(
-  //         uid: user.userId,
-  //         email: email,
-  //         userSettings: userSetting ?? state.userSettings,
-  //       );
-  //     } else {
-  //       state = const UserAuthState();
-  //     }
-  //   } catch (e) {
-  //     // Handle error
-  //     state = const UserAuthState();
-  //   }
-  // }
+  Future<void> fetchUser() async {
+    try {
+      final session = await checkLoginStatus();
+      if (session) {
+        final userId = supabaseClient.auth.currentUser!.id;
+        UserStorage.setUserId(userId);
+        state = User(
+          username: '',
+          email: '',
+          userId: userId,
+        );
+      } else {
+        state = const User(
+          username: '',
+          email: '',
+          userId: '',
+        );
+      }
+    } catch (e) {
+      // Handle error
+      state = const User(
+        username: '',
+        email: '',
+        userId: '',
+      );
+    }
+  }
 
   Future<void> signUp(
     String email,
@@ -82,17 +87,13 @@ class AuthNotifier extends _$AuthNotifier {
     }
   }
 
-  // Future<void> signOut() async {
-  //   try {
-  //     state = const UserAuthState();
-  //     await _authService.signOut();
-  //     AppLocalPersistentStorage().clearAll();
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-
   Future<void> signOut() async {
     try {
+      state = const User(
+        username: '',
+        email: '',
+        userId: '',
+      );
       await _authService.signOut();
     } catch (e) {
       rethrow;
