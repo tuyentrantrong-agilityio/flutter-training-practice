@@ -13,6 +13,10 @@ abstract class AuthRepository {
     required String email,
     required String password,
   });
+
+  Future<bool> checkLoginStatus();
+
+  Future<void> signOut();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -52,6 +56,26 @@ class AuthRepositoryImpl implements AuthRepository {
     } catch (e) {
       // Handle sign in error
       debugPrint('Sign in error: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> checkLoginStatus() async {
+    try {
+      return await _authService.checkLoginStatus();
+    } catch (e) {
+      debugPrint('Check login status error: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _authService.signOut();
+    } catch (e) {
+      debugPrint('Sign out error: $e');
       rethrow;
     }
   }

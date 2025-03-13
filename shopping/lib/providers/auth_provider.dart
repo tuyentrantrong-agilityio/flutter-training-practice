@@ -74,6 +74,14 @@ class AuthNotifier extends _$AuthNotifier {
     }
   }
 
+  Future<bool> checkLoginStatus() async {
+    try {
+      return await _authService.checkLoginStatus();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // Future<void> signOut() async {
   //   try {
   //     state = const UserAuthState();
@@ -82,4 +90,12 @@ class AuthNotifier extends _$AuthNotifier {
   //   } catch (e) {
   //     rethrow;
   //   }
+
+  Future<void> signOut() async {
+    try {
+      await _authService.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -36,7 +36,7 @@ class AuthService {
     }
   }
 
-  Future<bool> isLogin() async {
+  Future<bool> checkLoginStatus() async {
     try {
       final session = await supabaseClient.auth.currentSession;
       if (session != null) {
@@ -45,8 +45,7 @@ class AuthService {
         return false;
       }
     } catch (e) {
-      // Handle sign out error
-      debugPrint('Sign out error: $e');
+      debugPrint('Check login status error: $e');
       rethrow;
     }
   }
