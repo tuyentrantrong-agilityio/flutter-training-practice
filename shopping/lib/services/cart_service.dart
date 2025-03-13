@@ -6,7 +6,7 @@ import 'supabase_init.dart';
 
 class CartService {
   Future<List<CartItemViewModel>> getCartItemsWithProductDetails(
-    int userId,
+    String userId,
   ) async {
     try {
       // Get cart id

@@ -4,7 +4,7 @@ import '../models/product.dart';
 import 'supabase_init.dart';
 
 class FavoriteService {
-  Future<void> insertFavorite(int userId, int productId) async {
+  Future<void> insertFavorite(String userId, int productId) async {
     try {
       final response = await supabaseClient.from('favorites').insert({
         'user_id': userId,
@@ -26,7 +26,7 @@ class FavoriteService {
     }
   }
 
-  Future<List<Product>> getFavoriteProductsByUserId(int userId) async {
+  Future<List<Product>> getFavoriteProductsByUserId(String userId) async {
     try {
       final response = await supabaseClient
           .from('favorites')
@@ -45,7 +45,7 @@ class FavoriteService {
     }
   }
 
-  Future<void> removeFavorite(int userId, int productId) async {
+  Future<void> removeFavorite(String userId, int productId) async {
     try {
       final response = await supabaseClient
           .from('favorites')
