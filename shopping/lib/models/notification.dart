@@ -7,7 +7,7 @@ part 'notification.freezed.dart';
 class Notification with _$Notification {
   const factory Notification({
     @JsonKey(name: 'notification_id') int? notificationId,
-    @JsonKey(name: 'user_id') required int userId,
+    @JsonKey(name: 'user_id') required String userId,
     required String title,
     required String message,
     @JsonKey(name: 'is_read') required bool isRead,

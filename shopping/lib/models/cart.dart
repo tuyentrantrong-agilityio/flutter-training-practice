@@ -8,7 +8,7 @@ part 'cart.g.dart';
 class Cart with _$Cart {
   factory Cart({
     @JsonKey(name: 'cart_id') required int cartId,
-    @JsonKey(name: 'user_id') required int userId,
+    @JsonKey(name: 'user_id') required String userId,
     required List<CartItem> items,
   }) = _Cart;
 
