@@ -5,7 +5,7 @@ import '../models/cart_item_viewmodel.dart';
 import '../services/cart_service.dart';
 
 abstract class CartRepository {
-  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(int userId);
+  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(String userId);
   Future<void> addProductToCart(int cartId, int productId, int quantity);
   Future<void> removeProductFromCart(int cartId, int productId);
   Future<void> updateProductQuantity(
@@ -26,7 +26,7 @@ class CartRepositoryImpl implements CartRepository {
 
   @override
   Future<List<CartItemViewModel>> getCartItemsWithProductDetails(
-    int userId,
+    String userId,
   ) async {
     try {
       return await _cartService.getCartItemsWithProductDetails(userId);
@@ -51,7 +51,7 @@ class CartRepositoryImpl implements CartRepository {
       rethrow;
     }
   }
-  
+
   @override
   Future<void> addMultipleProductsToCart(
     int cartId,
