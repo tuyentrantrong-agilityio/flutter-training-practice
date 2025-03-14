@@ -5,7 +5,8 @@ import '../models/cart_item_viewmodel.dart';
 import '../services/cart_service.dart';
 
 abstract class CartRepository {
-  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(String userId);
+  Future<int> getCartId(String userId);
+  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(int cardId);
   Future<void> addProductToCart(int cartId, int productId, int quantity);
   Future<void> removeProductFromCart(int cartId, int productId);
   Future<void> updateProductQuantity(
@@ -25,11 +26,24 @@ class CartRepositoryImpl implements CartRepository {
   CartRepositoryImpl(this._cartService);
 
   @override
-  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(
+  Future<int> getCartId(
     String userId,
   ) async {
     try {
-      return await _cartService.getCartItemsWithProductDetails(userId);
+      return await _cartService.getCartId(userId);
+    } catch (e) {
+      // Handle get cart items error
+      debugPrint('Get cart items error: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<CartItemViewModel>> getCartItemsWithProductDetails(
+    int cartId,
+  ) async {
+    try {
+      return await _cartService.getCartItemsWithProductDetails(cartId);
     } catch (e) {
       // Handle get cart items error
       debugPrint('Get cart items error: $e');
