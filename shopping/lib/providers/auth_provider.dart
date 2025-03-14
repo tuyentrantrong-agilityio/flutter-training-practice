@@ -29,7 +29,9 @@ class AuthNotifier extends _$AuthNotifier {
       final session = await checkLoginStatus();
       if (session) {
         final userId = supabaseClient.auth.currentUser!.id;
+        final cartId = await ref.read(cartServiceProvider).getCartId(userId);
         UserStorage.setUserId(userId);
+        UserStorage.setCartId(cartId);
         state = User(
           username: '',
           email: '',
