@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../providers/favorite_provider.dart';
 import '../../../../router/app_router.gr.dart';
 import '../../../../shared/widgets/widget.dart';
 
@@ -33,53 +35,32 @@ class FavoritePage extends StatelessWidget {
             onRightFunction: () => context.pushRoute(const CartRoute()),
           ),
           Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(16.0),
-              children: const [
-                ProductCard(
-                  name: 'Coffee Table',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 5,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Coffee Chair',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 20.00,
-                  inventoryQuantity: 10,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Stand',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 25.00,
-                  inventoryQuantity: 15,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 20,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 1,
-                ),
-              ],
+            child: Consumer(
+              builder: (_, ref, __) {
+                final asyncListProduct = ref.watch(favoriteNotifierProvider);
+                return asyncListProduct.when(
+                  data: (products) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        return ProductCard(
+                          productId: product.productId!,
+                          name: product.name,
+                          imageUrl: product.imageUrl!,
+                          price: product.price,
+                          inventoryQuantity: product.stock,
+                        );
+                      },
+                      separatorBuilder: (_, __) => const Divider(),
+                    );
+                  },
+                  error: (_, __) => const SizedBox.shrink(),
+                  loading: () => const ShimmerLoading(),
+                );
+              },
             ),
           ),
         ],

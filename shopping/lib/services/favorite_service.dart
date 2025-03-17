@@ -6,19 +6,11 @@ import 'supabase_init.dart';
 class FavoriteService {
   Future<void> insertFavorite(String userId, int productId) async {
     try {
-      final response = await supabaseClient.from('favorites').insert({
+      await supabaseClient.from('favorites').insert({
         'user_id': userId,
         'product_id': productId,
         'added_at': DateTime.now().toIso8601String(),
       });
-
-      if (response.error != null) {
-        throw Exception(
-          'Failed to insert favorite: ${response.error!.message}',
-        );
-      } else {
-        debugPrint('Favorite inserted successfully');
-      }
     } catch (e) {
       // Handle insert favorite error
       debugPrint('Insert favorite error: $e');
@@ -47,19 +39,11 @@ class FavoriteService {
 
   Future<void> removeFavorite(String userId, int productId) async {
     try {
-      final response = await supabaseClient
+      await supabaseClient
           .from('favorites')
           .delete()
           .eq('user_id', userId)
           .eq('product_id', productId);
-
-      if (response.error != null) {
-        throw Exception(
-          'Failed to remove favorite: ${response.error!.message}',
-        );
-      } else {
-        debugPrint('Favorite removed successfully');
-      }
     } catch (e) {
       // Handle remove favorite error
       debugPrint('Remove favorite error: $e');
