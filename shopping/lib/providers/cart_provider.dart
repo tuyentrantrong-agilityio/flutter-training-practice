@@ -1,73 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shopping/providers/repository_provider.dart';
+import '../models/cart_item.dart';
 import '../models/cart_item_viewmodel.dart';
 import '../models/product.dart';
 import '../repositories/cart_repository.dart';
+import '../services/storage/storage.dart';
 
 part 'cart_provider.g.dart';
 
 @riverpod
 class CartNotifier extends _$CartNotifier {
   late final CartRepository _cartRepository;
-
-  List<CartItemViewModel> _cartItems = [];
-  List<CartItemViewModel> get cartItems => _cartItems;
+  late int _cartId;
+  late List<CartItemViewModel> _cartItems;
 
   @override
-  Future<void> build() async {
-    // Initialize provider state if needed
+  Future<List<CartItemViewModel>> build() async {
+    _cartRepository = ref.read(cartServiceProvider);
+    _cartId = UserStorage.getCartId();
+    final data = await _cartRepository.getCartItemsWithProductDetails(_cartId);
+    _cartItems = data;
+    debugPrint('Fetch cart items in build: $_cartItems');
+    return data;
   }
 
-  Future<void> fetchCartItems(int userId) async {
+  Future<void> fetchCartItems() async {
     try {
-      _cartItems = await _cartRepository.getCartItemsWithProductDetails(userId);
+      _cartItems =
+          await _cartRepository.getCartItemsWithProductDetails(_cartId);
+      // state = AsyncData(_cartItems);
     } catch (e) {
-      debugPrint('Fetch cart items error: $e');
+      rethrow;
     }
   }
 
-  Future<void> addProductToCart(int cartId, int productId, int quantity) async {
+  CartItemViewModel? findCartItem(int productId) {
     try {
-      await _cartRepository.addProductToCart(cartId, productId, quantity);
-      await fetchCartItems(cartId); // Refresh cart items
+      return _cartItems
+          .firstWhere((item) => item.product.productId == productId);
     } catch (e) {
-      debugPrint('Add product to cart error: $e');
+      return null;
     }
   }
 
-  Future<void> removeProductFromCart(int cartId, int productId) async {
+  Future<void> addProductToCart(Product product, int quantity) async {
     try {
-      await _cartRepository.removeProductFromCart(cartId, productId);
-      await fetchCartItems(cartId); // Refresh cart items
+      // Ensure the initial build has been done
+      if (state is AsyncLoading) {
+        await future;
+      }
+      final existingItem = findCartItem(product.productId!);
+      if (existingItem != null) {
+        // Product already exists, update quantity
+        final updatedItem = existingItem.copyWith(
+          cartItem: existingItem.cartItem.copyWith(
+            quantity: existingItem.cartItem.quantity + quantity,
+          ),
+        );
+        final index = _cartItems.indexOf(existingItem);
+        _cartItems[index] = updatedItem;
+      } else {
+        // Product doesn't exist, add to cart
+        _cartItems.add(
+          CartItemViewModel(
+            product: product,
+            cartItem: CartItem(quantity: quantity),
+          ),
+        );
+      }
+      state = AsyncData(_cartItems);
+      await _cartRepository.addProductToCart(
+        _cartId,
+        product.productId!,
+        quantity,
+      );
     } catch (e) {
-      debugPrint('Remove product from cart error: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> removeProductFromCart(int productId) async {
+    try {
+      _cartItems.removeWhere((item) => item.product.productId == productId);
+      state = AsyncData(_cartItems);
+      await _cartRepository.removeProductFromCart(_cartId, productId);
+    } catch (e) {
+      rethrow;
     }
   }
 
   Future<void> updateProductQuantity(
-    int cartId,
     int productId,
     int quantity,
   ) async {
     try {
-      await _cartRepository.updateProductQuantity(cartId, productId, quantity);
+      await _cartRepository.updateProductQuantity(_cartId, productId, quantity);
       // Refresh cart items
-      await fetchCartItems(cartId);
     } catch (e) {
-      debugPrint('Update product quantity error: $e');
+      rethrow;
     }
   }
 
   Future<void> addMultipleProductsToCart(
-    int cartId,
     List<Product> products,
   ) async {
     try {
-      await _cartRepository.addMultipleProductsToCart(cartId, products);
+      await _cartRepository.addMultipleProductsToCart(_cartId, products);
       // Refresh cart items
-      await fetchCartItems(cartId);
+      await fetchCartItems();
     } catch (e) {
-      debugPrint('Add multiple products to cart error: $e');
+      rethrow;
     }
   }
 }
