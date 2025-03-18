@@ -1,18 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../providers/cart_provider.dart';
 import '../../../../router/app_router.gr.dart';
 import '../../../../shared/widgets/widget.dart';
 
 @RoutePage()
-class CartPage extends StatelessWidget {
+class CartPage extends ConsumerWidget {
   const CartPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations l10n = context.intl;
+    final asyncListProduct = ref.watch(cartNotifierProvider);
     return MainLayout(
       body: Column(
         children: [
@@ -21,55 +24,34 @@ class CartPage extends StatelessWidget {
             onLeftFunction: () => Navigator.pop(context),
             title: l10n.myCart,
           ),
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(16.0),
-              children: const [
-                ProductCard(
-                  name: 'Coffee Table',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 5,
+          asyncListProduct.when(
+            data: (data) {
+              return Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final cartItemViewModel = data[index];
+                    final cartItem = cartItemViewModel.cartItem;
+                    final product = cartItemViewModel.product;
+
+                    return ProductCard(
+                      productId: product.productId!,
+                      name: product.name,
+                      imageUrl: product.imageUrl!,
+                      price: product.price,
+                      quantity: cartItem.quantity,
+                      inventoryQuantity: product.stock,
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider();
+                  },
                 ),
-                SizedBox(height: 10),
-                Divider(),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Coffee Chair',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 20.00,
-                  inventoryQuantity: 10,
-                ),
-                SizedBox(height: 10),
-                Divider(),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Stand',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 25.00,
-                  inventoryQuantity: 15,
-                ),
-                SizedBox(height: 10),
-                Divider(),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 20,
-                ),
-                SizedBox(height: 10),
-                Divider(),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 1,
-                ),
-              ],
-            ),
+              );
+            },
+            error: (_, __) => const SizedBox.shrink(),
+            loading: () => const ShimmerLoading(),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
