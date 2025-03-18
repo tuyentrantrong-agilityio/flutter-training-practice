@@ -30,7 +30,8 @@ class CartService {
       final response = await supabaseClient
           .from('cart_items')
           .select('*, products(*)')
-          .eq('cart_id', cartId);
+          .eq('cart_id', cartId)
+          .order('added_at', ascending: true);
 
       final data = response as List<dynamic>;
 
