@@ -207,6 +207,12 @@ abstract class AppLocalizations {
   /// **'reviews'**
   String get reviews;
 
+  /// No description provided for @newNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newNotification;
+
   /// No description provided for @myCart.
   ///
   /// In en, this message translates to:
@@ -314,6 +320,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No internet connection. Please connect and try again'**
   String get noInternet;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My orders'**
+  String get myOrders;
+
+  /// No description provided for @myOrdersDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have {count} orders'**
+  String myOrdersDescription(Object count);
+
+  /// No description provided for @shippingAddresses.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping Addresses'**
+  String get shippingAddresses;
+
+  /// No description provided for @shippingAddressesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Addresses'**
+  String shippingAddressesDescription(Object count);
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @paymentMethodDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {count} cards'**
+  String paymentMethodDescription(Object count);
+
+  /// No description provided for @myReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'My reviews'**
+  String get myReviews;
+
+  /// No description provided for @myReviewsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews for {count} items'**
+  String myReviewsDescription(Object count);
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get settings;
+
+  /// No description provided for @settingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification, Password, FAQ, Contact'**
+  String get settingsDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
