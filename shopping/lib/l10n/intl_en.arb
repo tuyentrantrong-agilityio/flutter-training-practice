@@ -18,6 +18,7 @@
   "makeHome": "Make home",
   "beutiful": "BEAUTIFUL",
   "reviews": "reviews",
+  "newNotification": "New",
   "myCart": "My cart",
   "addToCart": "Add to cart",
   "addAllToMyCart": "Add all to my cart",
@@ -35,5 +36,15 @@
   "confirmPasswordRequired": "Confirm password is required.",
   "confirmPasswordDontMatch": "Confirm password doesn't match.",
   "messageLogout": "Are you sure you want to log out?",
-  "noInternet": "No internet connection. Please connect and try again"
+  "noInternet": "No internet connection. Please connect and try again",
+  "myOrders": "My orders",
+  "myOrdersDescription": "Already have {count} orders",
+  "shippingAddresses": "Shipping Addresses",
+  "shippingAddressesDescription": "{count} Addresses",
+  "paymentMethod": "Payment Method",
+  "paymentMethodDescription": "You have {count} cards",
+  "myReviews": "My reviews",
+  "myReviewsDescription": "Reviews for {count} items",
+  "settings": "Setting",
+  "settingsDescription": "Notification, Password, FAQ, Contact"
 }
