@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:shopping/models/product.dart';
 
 import '../models/cart_item_viewmodel.dart';
@@ -29,26 +28,14 @@ class CartRepositoryImpl implements CartRepository {
   Future<int> getCartId(
     String userId,
   ) async {
-    try {
-      return await _cartService.getCartId(userId);
-    } catch (e) {
-      // Handle get cart items error
-      debugPrint('Get cart items error: $e');
-      rethrow;
-    }
+    return _cartService.getCartId(userId);
   }
 
   @override
   Future<List<CartItemViewModel>> getCartItemsWithProductDetails(
     int cartId,
   ) async {
-    try {
-      return await _cartService.getCartItemsWithProductDetails(cartId);
-    } catch (e) {
-      // Handle get cart items error
-      debugPrint('Get cart items error: $e');
-      rethrow;
-    }
+    return _cartService.getCartItemsWithProductDetails(cartId);
   }
 
   @override
@@ -57,13 +44,7 @@ class CartRepositoryImpl implements CartRepository {
     int productId,
     int quantity,
   ) async {
-    try {
-      await _cartService.addProductToCart(cartId, productId, quantity);
-    } catch (e) {
-      // Handle add product to cart error
-      debugPrint('Add product to cart error: $e');
-      rethrow;
-    }
+    await _cartService.addProductToCart(cartId, productId, quantity);
   }
 
   @override
@@ -71,26 +52,14 @@ class CartRepositoryImpl implements CartRepository {
     int cartId,
     List<Product> products,
   ) async {
-    try {
-      for (final product in products) {
-        await _cartService.addProductToCart(cartId, product.productId!, 1);
-      }
-    } catch (e) {
-      // Handle add multiple products to cart error
-      debugPrint('Add multiple products to cart error: $e');
-      rethrow;
+    for (final product in products) {
+      await _cartService.addProductToCart(cartId, product.productId!, 1);
     }
   }
 
   @override
   Future<void> removeProductFromCart(int cartId, int productId) async {
-    try {
-      await _cartService.removeProductFromCart(cartId, productId);
-    } catch (e) {
-      // Handle remove product from cart error
-      debugPrint('Remove product from cart error: $e');
-      rethrow;
-    }
+    await _cartService.removeProductFromCart(cartId, productId);
   }
 
   @override
@@ -99,12 +68,6 @@ class CartRepositoryImpl implements CartRepository {
     int productId,
     int quantity,
   ) async {
-    try {
-      await _cartService.updateProductQuantity(cartId, productId, quantity);
-    } catch (e) {
-      // Handle update product quantity error
-      debugPrint('Update product quantity error: $e');
-      rethrow;
-    }
+    await _cartService.updateProductQuantity(cartId, productId, quantity);
   }
 }
