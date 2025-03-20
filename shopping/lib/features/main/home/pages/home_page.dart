@@ -96,7 +96,7 @@ class HomePage extends HookWidget {
                     return const Text('Error');
                   } else {
                     return Expanded(
-                      flex: 9,
+                      flex: 8,
                       child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -106,14 +106,11 @@ class HomePage extends HookWidget {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           final product = snapshot.data![index];
-
                           return GestureDetector(
                             onTap: () => context
                                 .pushRoute(ProductRoute(product: product)),
                             child: OverviewCard(
-                              name: product.name,
-                              image: product.imageUrl!,
-                              cost: product.price,
+                              product: product,
                             ),
                           );
                         },

@@ -33,15 +33,10 @@ class CartPage extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final cartItemViewModel = data[index];
                     final cartItem = cartItemViewModel.cartItem;
-                    final product = cartItemViewModel.product;
 
                     return ProductCard(
-                      productId: product.productId!,
-                      name: product.name,
-                      imageUrl: product.imageUrl!,
-                      price: product.price,
+                      product: cartItemViewModel.product,
                       quantity: cartItem.quantity,
-                      inventoryQuantity: product.stock,
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {

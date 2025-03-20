@@ -47,11 +47,7 @@ class FavoritePage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final product = products[index];
                         return ProductCard(
-                          productId: product.productId!,
-                          name: product.name,
-                          imageUrl: product.imageUrl!,
-                          price: product.price,
-                          inventoryQuantity: product.stock,
+                          product: product,
                         );
                       },
                       separatorBuilder: (_, __) => const Divider(),
