@@ -3,4 +3,5 @@ abstract class AppConst {
   static const String gelasio = 'Gelasio';
   static const String merriweather = 'Merriweather';
   static const String nunito = 'Nunito_Sans';
+  static const String popular = 'Popular';
 }
