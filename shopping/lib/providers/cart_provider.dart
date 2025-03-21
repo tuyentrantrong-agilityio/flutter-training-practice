@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping/providers/repository_provider.dart';
 import '../models/cart_item.dart';
@@ -21,7 +20,6 @@ class CartNotifier extends _$CartNotifier {
     _cartId = UserStorage.getCartId();
     final data = await _cartRepository.getCartItemsWithProductDetails(_cartId);
     _cartItems = data;
-    debugPrint('Fetch cart items in build: $_cartItems');
     return data;
   }
 
@@ -44,7 +42,11 @@ class CartNotifier extends _$CartNotifier {
     }
   }
 
-  Future<void> addProductToCart(Product product, int quantity) async {
+  Future<void> addProductToCart({
+    bool isUpdate = false,
+    required Product product,
+    required int quantity,
+  }) async {
     try {
       // Ensure the initial build has been done
       if (state is AsyncLoading) {
@@ -55,7 +57,8 @@ class CartNotifier extends _$CartNotifier {
         // Product already exists, update quantity
         final updatedItem = existingItem.copyWith(
           cartItem: existingItem.cartItem.copyWith(
-            quantity: existingItem.cartItem.quantity + quantity,
+            quantity:
+                isUpdate ? quantity : existingItem.cartItem.quantity + quantity,
           ),
         );
         final index = _cartItems.indexOf(existingItem);
@@ -70,11 +73,15 @@ class CartNotifier extends _$CartNotifier {
         );
       }
       state = AsyncData(_cartItems);
-      await _cartRepository.addProductToCart(
-        _cartId,
-        product.productId!,
-        quantity,
-      );
+      if (isUpdate) {
+        updateProductQuantity(product.productId!, quantity);
+      } else {
+        await _cartRepository.addProductToCart(
+          _cartId,
+          product.productId!,
+          quantity,
+        );
+      }
     } catch (e) {
       rethrow;
     }
@@ -96,7 +103,6 @@ class CartNotifier extends _$CartNotifier {
   ) async {
     try {
       await _cartRepository.updateProductQuantity(_cartId, productId, quantity);
-      // Refresh cart items
     } catch (e) {
       rethrow;
     }
@@ -106,9 +112,9 @@ class CartNotifier extends _$CartNotifier {
     List<Product> products,
   ) async {
     try {
-      await _cartRepository.addMultipleProductsToCart(_cartId, products);
-      // Refresh cart items
-      await fetchCartItems();
+      for (final product in products) {
+        await addProductToCart(product: product, quantity: 1);
+      }
     } catch (e) {
       rethrow;
     }
