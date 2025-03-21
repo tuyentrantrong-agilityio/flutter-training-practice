@@ -1,12 +1,16 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../repositories/auth_repository.dart';
 import '../repositories/cart_repository.dart';
+import '../repositories/category_repository.dart';
 import '../repositories/favorite_repository.dart';
 import '../repositories/notification_repository.dart';
+import '../repositories/product_repository.dart';
 import '../services/auth_service.dart';
 import '../services/cart_service.dart';
+import '../services/category_service.dart';
 import '../services/favorite_service.dart';
 import '../services/notification_service.dart';
+import '../services/product_service.dart';
 
 part 'repository_provider.g.dart';
 
@@ -25,3 +29,11 @@ CartRepository cartService(CartServiceRef ref) =>
 @Riverpod(keepAlive: true)
 NotificationRepository notificationService(NotificationServiceRef ref) =>
     NotificationRepositoryImpl(NotificationService());
+
+@Riverpod(keepAlive: true)
+CategoryRepository categoryService(CategoryServiceRef ref) =>
+    CategoryRepositoryImpl(CategoryService());
+
+@Riverpod(keepAlive: true)
+ProductRepository productService(ProductServiceRef ref) =>
+    ProductRepositoryImpl(ProductService());
