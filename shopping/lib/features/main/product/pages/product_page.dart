@@ -39,6 +39,41 @@ class ProductPage extends HookWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 20,
+                    left: -10,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.greenBlue50,
+                            blurRadius: 40,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColors.black100,
+                          size: 18,
+                        ),
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                        ),
+                        alignment: Alignment.center,
+                        onPressed: () => context.maybePop(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
