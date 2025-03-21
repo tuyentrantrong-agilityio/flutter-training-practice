@@ -1,5 +1,3 @@
-import 'package:shopping/models/product.dart';
-
 import '../models/cart_item_viewmodel.dart';
 import '../services/cart_service.dart';
 
@@ -12,10 +10,6 @@ abstract class CartRepository {
     int cartId,
     int productId,
     int quantity,
-  );
-  Future<void> addMultipleProductsToCart(
-    int cartId,
-    List<Product> products,
   );
 }
 
@@ -45,16 +39,6 @@ class CartRepositoryImpl implements CartRepository {
     int quantity,
   ) async {
     await _cartService.addProductToCart(cartId, productId, quantity);
-  }
-
-  @override
-  Future<void> addMultipleProductsToCart(
-    int cartId,
-    List<Product> products,
-  ) async {
-    for (final product in products) {
-      await _cartService.addProductToCart(cartId, product.productId!, 1);
-    }
   }
 
   @override
