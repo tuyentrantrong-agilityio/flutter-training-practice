@@ -1,20 +1,24 @@
+import 'dart:async';
+
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../services/auth_service.dart';
 
 abstract class AuthRepository {
-  Future<void> signUp({
+  FutureOr<AuthResponse> signUp({
     required String email,
     required String password,
     String? name,
   });
 
-  Future<void> signIn({
+  FutureOr<AuthResponse> signIn({
     required String email,
     required String password,
   });
 
-  Future<bool> checkLoginStatus();
+  FutureOr<bool> checkLoginStatus();
 
-  Future<void> signOut();
+  FutureOr<void> signOut();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -23,12 +27,12 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authService);
 
   @override
-  Future<void> signUp({
+  FutureOr<AuthResponse> signUp({
     required String email,
     required String password,
     String? name,
-  }) async {
-    await _authService.signUp(
+  }) {
+    return _authService.signUp(
       email: email,
       password: password,
       name: name,
@@ -36,23 +40,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> signIn({
+  FutureOr<AuthResponse> signIn({
     required String email,
     required String password,
-  }) async {
-    await _authService.signIn(
+  }) {
+    return _authService.signIn(
       email: email,
       password: password,
     );
   }
 
   @override
-  Future<bool> checkLoginStatus() async {
+  FutureOr<bool> checkLoginStatus() {
     return _authService.checkLoginStatus();
   }
 
   @override
-  Future<void> signOut() async {
-    await _authService.signOut();
+  FutureOr<void> signOut() {
+    _authService.signOut();
   }
 }

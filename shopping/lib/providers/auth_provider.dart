@@ -60,7 +60,7 @@ class AuthNotifier extends _$AuthNotifier {
     String name,
   ) async {
     try {
-      return await _authService.signUp(
+      await _authService.signUp(
         email: email,
         password: password,
         name: name,

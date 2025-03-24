@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../utils/errors/handle_error.dart';
 import 'supabase_init.dart';
 
 class AuthService {
-  Future<void> signUp({
+  Future<AuthResponse> signUp({
     required String email,
     required String password,
     String? name,
@@ -25,24 +29,22 @@ class AuthService {
         });
         signIn(email: email, password: password);
       }
+      return response;
     } catch (e) {
-      // Handle sign up error
-      debugPrint('Sign up error: $e');
-      rethrow;
+      throw HandleError.handle(e);
     }
   }
 
-  Future<void> signIn({
+  Future<AuthResponse> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      await supabaseClient.auth
+      final response = await supabaseClient.auth
           .signInWithPassword(email: email, password: password);
+      return response;
     } catch (e) {
-      // Handle sign in error
-      debugPrint('Sign in error: $e');
-      rethrow;
+      throw HandleError.handle(e);
     }
   }
 
@@ -55,8 +57,7 @@ class AuthService {
         return false;
       }
     } catch (e) {
-      debugPrint('Check login status error: $e');
-      rethrow;
+      throw HandleError.handle(e);
     }
   }
 
@@ -64,9 +65,7 @@ class AuthService {
     try {
       await supabaseClient.auth.signOut();
     } catch (e) {
-      // Handle sign out error
-      debugPrint('Sign out error: $e');
-      rethrow;
+      throw HandleError.handle(e);
     }
   }
 }
