@@ -1,3 +1,4 @@
+import 'package:cached_query/cached_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +14,12 @@ void main() async {
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+  );
+  CachedQuery.instance.config(
+    config: QueryConfig(
+      refetchDuration: const Duration(seconds: 4),
+      cacheDuration: const Duration(minutes: 5),
+    ),
   );
   runApp(const ProviderScope(child: MyApp()));
 }
