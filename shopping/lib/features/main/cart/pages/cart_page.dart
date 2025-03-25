@@ -33,7 +33,10 @@ class CartPage extends HookConsumerWidget {
                   padding: const EdgeInsets.all(16.0),
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    cartItemList.value = data;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      cartItemList.value = data;
+                    });
+
                     final cartItemViewModel = data[index];
                     final cartItem = cartItemViewModel.cartItem;
 
