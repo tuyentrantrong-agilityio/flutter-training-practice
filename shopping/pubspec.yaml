@@ -37,6 +37,7 @@ dependencies:
   supabase_flutter: ^2.8.4
   freezed: ^2.5.7
   mocktail: ^1.0.4
+  cached_query: ^2.2.1
 
 dependency_overrides:
   intl: 0.18.1
