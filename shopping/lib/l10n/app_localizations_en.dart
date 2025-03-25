@@ -64,6 +64,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviews => 'reviews';
 
   @override
+  String get newNotification => 'New';
+
+  @override
   String get myCart => 'My cart';
 
   @override
@@ -116,4 +119,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noInternet => 'No internet connection. Please connect and try again';
+
+  @override
+  String get myOrders => 'My orders';
+
+  @override
+  String myOrdersDescription(Object count) {
+    return 'Already have $count orders';
+  }
+
+  @override
+  String get shippingAddresses => 'Shipping Addresses';
+
+  @override
+  String shippingAddressesDescription(Object count) {
+    return '$count Addresses';
+  }
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String paymentMethodDescription(Object count) {
+    return 'You have $count cards';
+  }
+
+  @override
+  String get myReviews => 'My reviews';
+
+  @override
+  String myReviewsDescription(Object count) {
+    return 'Reviews for $count items';
+  }
+
+  @override
+  String get settings => 'Setting';
+
+  @override
+  String get settingsDescription => 'Notification, Password, FAQ, Contact';
 }

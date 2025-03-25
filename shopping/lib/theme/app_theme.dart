@@ -56,14 +56,17 @@ class AppThemes {
       textTheme: textTheme,
       applyElevationOverlayColor: isDark,
 
-      // inputDecorationTheme: const InputDecorationTheme(
-      //   enabledBorder: OutlineInputBorder(
-      //     borderSide: BorderSide(color: AppColors.gray200),
-      //   ),
-      //   focusedBorder: OutlineInputBorder(
-      //     borderSide: BorderSide(color: AppColors.gray200),
-      //   ),
-      // ),
+      inputDecorationTheme: const InputDecorationTheme(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.gray200),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.gray200),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+      ),
       iconTheme: const IconThemeData(
         size: 30,
         color: AppColors.white,

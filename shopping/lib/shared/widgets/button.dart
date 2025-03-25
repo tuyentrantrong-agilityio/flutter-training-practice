@@ -10,6 +10,7 @@ class ShoppingButton extends StatelessWidget {
   final double? width;
   final double? height;
   final double borderRadius;
+  final bool isLoading;
 
   const ShoppingButton({
     super.key,
@@ -18,6 +19,7 @@ class ShoppingButton extends StatelessWidget {
     this.width,
     this.height,
     this.borderRadius = 8.0,
+    this.isLoading = false,
   });
 
   @override
@@ -32,14 +34,18 @@ class ShoppingButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: AppColors.white,
-            fontWeight: AppFontWeights.semiBold,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        child: isLoading
+            ? const CircularProgressIndicator(
+                color: AppColors.white,
+              )
+            : Text(
+                text,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: AppColors.white,
+                  fontWeight: AppFontWeights.semiBold,
+                ),
+                textAlign: TextAlign.center,
+              ),
       ),
     );
   }

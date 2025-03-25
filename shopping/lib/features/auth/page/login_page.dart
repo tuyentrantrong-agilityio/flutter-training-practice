@@ -7,7 +7,6 @@ import 'package:shopping/utils/extensions/extension.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../providers/auth_provider.dart';
 import '../../../router/app_router.gr.dart';
-import '../../../shared/widgets/text_input.dart';
 import '../../../shared/widgets/widget.dart';
 import '../../../theme/theme.dart';
 import '../widgets/auth_form.dart';

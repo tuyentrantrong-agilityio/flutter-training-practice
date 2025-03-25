@@ -7,10 +7,9 @@ part 'cart_item.freezed.dart';
 class CartItem with _$CartItem {
   const factory CartItem({
     @JsonKey(name: 'cart_item_id') int? cartItemId,
-    @JsonKey(name: 'user_id') required int userId,
-    @JsonKey(name: 'product_id') required int productId,
+    @JsonKey(name: 'product_id') int? productId,
     required int quantity,
-    @JsonKey(name: 'added_at') required DateTime addedAt,
+    @JsonKey(name: 'added_at') DateTime? addedAt,
   }) = _CartItem;
 
   factory CartItem.fromJson(Map<String, dynamic> json) =>

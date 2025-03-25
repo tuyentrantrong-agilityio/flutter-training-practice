@@ -1,25 +1,46 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../models/product.dart';
+import '../../../../providers/cart_provider.dart';
+import '../../../../providers/favorite_provider.dart';
 import '../../../../router/app_router.gr.dart';
 import '../../../../shared/widgets/widget.dart';
 
 @RoutePage()
-class FavoritePage extends StatelessWidget {
+class FavoritePage extends HookConsumerWidget {
   const FavoritePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations l10n = context.intl;
+    final asyncListProduct = ref.watch(favoriteNotifierProvider);
+    final productList = useState<List<Product>>([]);
+    final isLoading = useState(false);
 
     return MainLayout(
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: ShoppingButton(
           text: l10n.addAllToMyCart,
-          onPressed: () => context.pushRoute(const LogInRoute()),
+          isLoading: isLoading.value,
+          onPressed: isLoading.value
+              ? null
+              : () async {
+                  if (productList.value != []) {
+                    isLoading.value = true;
+                    await ref
+                        .watch(cartNotifierProvider.notifier)
+                        .addMultipleProductsToCart(productList.value);
+                    if (!context.mounted) return;
+                    isLoading.value = false;
+                    context.router.popAndPush(const CartRoute());
+                  }
+                },
           height: 60,
         ),
       ),
@@ -33,53 +54,24 @@ class FavoritePage extends StatelessWidget {
             onRightFunction: () => context.pushRoute(const CartRoute()),
           ),
           Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(16.0),
-              children: const [
-                ProductCard(
-                  name: 'Coffee Table',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 5,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Coffee Chair',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 20.00,
-                  inventoryQuantity: 10,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Stand',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 25.00,
-                  inventoryQuantity: 15,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 20,
-                ),
-                SizedBox(height: 10),
-                Divider(color: Color(0xFFF0F0F0), height: 1),
-                SizedBox(height: 10),
-                ProductCard(
-                  name: 'Minimal Desk',
-                  imageUrl: 'assets/images/product_image.png',
-                  price: 50.00,
-                  inventoryQuantity: 1,
-                ),
-              ],
+            child: asyncListProduct.when(
+              data: (products) {
+                productList.value = products;
+                return ListView.separated(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return ProductCard(
+                      product: product,
+                    );
+                  },
+                  separatorBuilder: (_, __) => const Divider(),
+                );
+              },
+              error: (_, __) => const SizedBox.shrink(),
+              loading: () => const ShimmerLoading(),
             ),
           ),
         ],

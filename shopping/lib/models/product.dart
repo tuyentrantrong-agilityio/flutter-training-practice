@@ -15,6 +15,8 @@ class Product with _$Product {
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'rating') double? rating,
+    @JsonKey(name: 'reviews_count') int? reviewsCount,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

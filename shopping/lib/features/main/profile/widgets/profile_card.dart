@@ -27,7 +27,6 @@ class ProfileCard extends StatelessWidget {
                 color: AppColors.greenBlue50,
                 blurRadius: 40,
                 offset: Offset(0, 7),
-              
               ),
             ],
           ),
@@ -52,8 +51,6 @@ class ProfileCard extends StatelessWidget {
                       description,
                       textAlign: TextAlign.justify,
                       style: textTheme.labelSmall?.copyWith(
-                        fontSize: 12,
-                        fontWeight: AppFontWeights.bold,
                         color: AppColors.gray500,
                       ),
                     ),

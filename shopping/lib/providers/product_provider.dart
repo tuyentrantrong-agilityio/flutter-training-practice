@@ -1,0 +1,31 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shopping/providers/repository_provider.dart';
+import '../const/const.dart';
+import '../models/product.dart';
+import '../repositories/product_repository.dart';
+
+part 'product_provider.g.dart';
+
+@riverpod
+class ProductNotifier extends _$ProductNotifier {
+  late final ProductRepository _productRepository;
+  late List<Product> _products;
+
+  @override
+  Future<List<Product>> build() async {
+    _productRepository = ref.read(productServiceProvider);
+    final data = await _productRepository.getAllProducts();
+    _products = data;
+    return data;
+  }
+
+  void filterProductsByCategory(int categoryId, String name) {
+    if (name == AppConst.popular) {
+      state = AsyncData(_products);
+      return;
+    }
+    final products =
+        _products.where((product) => product.categoryId == categoryId).toList();
+    state = AsyncData(products);
+  }
+}

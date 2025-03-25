@@ -7,11 +7,11 @@ part 'notification.freezed.dart';
 class Notification with _$Notification {
   const factory Notification({
     @JsonKey(name: 'notification_id') int? notificationId,
-    @JsonKey(name: 'user_id') required int userId,
-    required String title,
-    required String message,
-    @JsonKey(name: 'is_read') required bool isRead,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'user_id') required String userId,
+    String? title,
+    String? message,
+    @Default(false) @JsonKey(name: 'is_read') bool isRead,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _Notification;
 
   factory Notification.fromJson(Map<String, dynamic> json) =>

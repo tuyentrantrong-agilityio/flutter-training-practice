@@ -1,18 +1,24 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../services/auth_service.dart';
 
 abstract class AuthRepository {
-  Future<void> signUp({
+  FutureOr<AuthResponse> signUp({
     required String email,
     required String password,
     String? name,
   });
 
-  Future<void> signIn({
+  FutureOr<AuthResponse> signIn({
     required String email,
     required String password,
   });
+
+  FutureOr<bool> checkLoginStatus();
+
+  FutureOr<void> signOut();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -21,38 +27,36 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authService);
 
   @override
-  Future<void> signUp({
+  FutureOr<AuthResponse> signUp({
     required String email,
     required String password,
     String? name,
-  }) async {
-    try {
-      await _authService.signUp(
-        email: email,
-        password: password,
-        name: name,
-      );
-    } catch (e) {
-      // Handle sign up error
-      debugPrint('Sign up error: $e');
-      rethrow;
-    }
+  }) {
+    return _authService.signUp(
+      email: email,
+      password: password,
+      name: name,
+    );
   }
 
   @override
-  Future<void> signIn({
+  FutureOr<AuthResponse> signIn({
     required String email,
     required String password,
-  }) async {
-    try {
-      await _authService.signIn(
-        email: email,
-        password: password,
-      );
-    } catch (e) {
-      // Handle sign in error
-      debugPrint('Sign in error: $e');
-      rethrow;
-    }
+  }) {
+    return _authService.signIn(
+      email: email,
+      password: password,
+    );
+  }
+
+  @override
+  FutureOr<bool> checkLoginStatus() {
+    return _authService.checkLoginStatus();
+  }
+
+  @override
+  FutureOr<void> signOut() {
+    _authService.signOut();
   }
 }

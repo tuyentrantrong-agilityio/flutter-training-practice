@@ -1,18 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping/utils/extensions/build_context_extension.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../../providers/notification_provider.dart';
 import '../../../../shared/widgets/widget.dart';
 import '../widgets/notification_item.dart';
 
 @RoutePage()
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations l10n = context.intl;
+    final notifications = ref.watch(notificationNotifierProvider);
+
     return MainLayout(
       body: Column(
         children: [
@@ -22,33 +26,31 @@ class NotificationPage extends StatelessWidget {
             title: l10n.notification,
           ),
           Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              children: const [
-                NotificationItem(
-                  title: 'Your order #123456789 has been confirmed',
-                  description:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis pretium et in arcu adipiscing nec. Turpis pretium et in arcu adipiscing nec.',
-                ),
-                SizedBox(height: 10),
-                NotificationItem(
-                  title: 'Your order #123456789 has been confirmed',
-                  description:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis pretium et in arcu adipiscing nec. Turpis pretium et in arcu adipiscing nec.',
-                ),
-                SizedBox(height: 10),
-                NotificationItem(
-                  title: 'Your order #123456789 has been confirmed',
-                  description:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis pretium et in arcu adipiscing nec. Turpis pretium et in arcu adipiscing nec.',
-                ),
-                SizedBox(height: 10),
-                NotificationItem(
-                  title: 'Your order #123456789 has been confirmed',
-                  description:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis pretium et in arcu adipiscing nec. Turpis pretium et in arcu adipiscing nec.',
-                ),
-              ],
+            child: notifications.when(
+              data: (notificationList) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: notificationList.length,
+                  itemBuilder: (context, index) {
+                    final notification = notificationList[index];
+                    return NotificationItem(
+                      title: notification.title ?? '',
+                      description: notification.message ?? '',
+                      isRead: notification.isRead,
+                      onTap: () async {
+                        await ref
+                            .read(notificationNotifierProvider.notifier)
+                            .updateNotificationReadStatus(
+                              notification.notificationId!,
+                            );
+                      },
+                    );
+                  },
+                  separatorBuilder: (_, __) => const Divider(),
+                );
+              },
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text('Error: $err')),
             ),
           ),
         ],

@@ -51,7 +51,7 @@ class OnboardingPage extends StatelessWidget {
                 style: textTheme.labelMedium?.copyWith(
                   fontWeight: AppFontWeights.regular,
                   height: 1.9,
-                  color: context.colorScheme.onPrimary,
+                  color: AppColors.gray500,
                 ),
               ),
             ),

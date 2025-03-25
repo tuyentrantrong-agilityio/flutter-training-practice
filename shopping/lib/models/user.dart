@@ -6,10 +6,9 @@ part 'user.freezed.dart';
 @freezed
 class User with _$User {
   const factory User({
-    @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'user_id') required String userId,
     required String username,
     required String email,
-    required String password,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _User;
 

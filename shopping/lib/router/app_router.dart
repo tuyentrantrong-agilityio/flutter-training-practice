@@ -6,7 +6,7 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          path: '/',
+          path: '/onboarding',
           page: OnboardingRoute.page,
         ),
         AutoRoute(

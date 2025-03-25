@@ -7,7 +7,7 @@ part 'order.freezed.dart';
 class Order with _$Order {
   const factory Order({
     @JsonKey(name: 'order_id') int? orderId,
-    @JsonKey(name: 'user_id') required int userId,
+    @JsonKey(name: 'user_id') required String userId,
     required double total,
     required String status,
     @JsonKey(name: 'created_at') required DateTime createdAt,
