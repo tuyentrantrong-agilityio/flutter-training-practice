@@ -17,7 +17,7 @@ void main() async {
   );
   CachedQuery.instance.config(
     config: QueryConfig(
-      refetchDuration: const Duration(seconds: 4),
+      refetchDuration: const Duration(minutes: 1),
       cacheDuration: const Duration(minutes: 5),
     ),
   );
