@@ -3,7 +3,7 @@ stages:
   - lints
   - tests
   - build
-  - deploy
+
 lints:
   stage: lints
   before_script:
@@ -12,6 +12,7 @@ lints:
     - flutter analyze
   tags:
     - flutter
+
 unit tests:
   stage: tests
   script:
@@ -23,25 +24,18 @@ unit tests:
   artifacts:
     paths:
       - coverage
-android:
+
+ios:
   stage: build
+  before_script:
+    - gem install bundler
+    - bundle install
+    - flutter pub get
   script:
-    - flutter build apk --release --build-number ${CI_JOB_ID:0:8}
-    - flutter build appbundle --release --build-number ${CI_JOB_ID:0:8}
-    - sudo bundle install
-    - cd android && bundle exec fastlane move_files
+    - flutter build ios --release --no-codesign
+    - cd ios && bundle exec fastlane gym --scheme "Runner" --clean --output_directory "../build/ios" --output_name "Runner.ipa"
   artifacts:
     paths:
-      - build/artifacts/
-  tags:
-    - flutter
-
-playstore:
-  stage: deploy
-  dependencies:
-
-    - android
-  script:
-    - cd android && bundle exec fastlane playstore_internal_release
+      - build/ios/*.ipa
   tags:
     - flutter
