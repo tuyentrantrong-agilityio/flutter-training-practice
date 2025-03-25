@@ -36,6 +36,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   supabase_flutter: ^2.8.4
   freezed: ^2.5.7
+  cached_query: ^2.2.1
   mocktail: ^1.0.4
 
 dependency_overrides:

@@ -1,0 +1,22 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Sync signing"
+  lane :signing do
+    match
+  end
+
+  desc "Build binary"
+  lane :build do
+    signing
+    sh("cd ../../ && flutter build ipa --export-options-plist=ExportOptions.plist")
+  end
+
+  desc "Upload to test flight"
+  lane :beta do
+    build
+    upload_to_testflight(
+      ipa: '../build/ios/ipa/lotus.ipa',
+    )
+  end
+end
