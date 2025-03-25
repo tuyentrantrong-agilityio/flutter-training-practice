@@ -1,3 +1,4 @@
+import 'package:cached_query/cached_query.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping/providers/repository_provider.dart';
 import '../models/cart_item.dart';
@@ -18,19 +19,22 @@ class CartNotifier extends _$CartNotifier {
   Future<List<CartItemViewModel>> build() async {
     _cartRepository = ref.read(cartServiceProvider);
     _cartId = UserStorage.getCartId();
-    final data = await _cartRepository.getCartItemsWithProductDetails(_cartId);
+    final data = await getCachedData();
     _cartItems = data;
     return data;
   }
 
-  Future<void> fetchCartItems() async {
-    try {
-      _cartItems =
-          await _cartRepository.getCartItemsWithProductDetails(_cartId);
-      // state = AsyncData(_cartItems);
-    } catch (e) {
-      rethrow;
-    }
+  Future<List<CartItemViewModel>> getCachedData() async {
+    final query = Query<List<CartItemViewModel>>(
+      key: "cart_items_$_cartId",
+      config: QueryConfig(
+        refetchDuration: const Duration(seconds: 4),
+        cacheDuration: const Duration(minutes: 5),
+      ),
+      queryFn: () => _cartRepository.getCartItemsWithProductDetails(_cartId),
+    );
+    final queryState = await query.result;
+    return queryState.data ?? [];
   }
 
   CartItemViewModel? findCartItem(int productId) {
@@ -74,7 +78,7 @@ class CartNotifier extends _$CartNotifier {
       }
       state = AsyncData(_cartItems);
       if (isUpdate) {
-        updateProductQuantity(product.productId!, quantity);
+        await updateProductQuantity(product.productId!, quantity);
       } else {
         await _cartRepository.addProductToCart(
           _cartId,
@@ -82,6 +86,7 @@ class CartNotifier extends _$CartNotifier {
           quantity,
         );
       }
+      CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
     } catch (e) {
       rethrow;
     }
@@ -92,6 +97,7 @@ class CartNotifier extends _$CartNotifier {
       _cartItems.removeWhere((item) => item.product.productId == productId);
       state = AsyncData(_cartItems);
       await _cartRepository.removeProductFromCart(_cartId, productId);
+      CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
     } catch (e) {
       rethrow;
     }
@@ -103,6 +109,7 @@ class CartNotifier extends _$CartNotifier {
   ) async {
     try {
       await _cartRepository.updateProductQuantity(_cartId, productId, quantity);
+      CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
     } catch (e) {
       rethrow;
     }
