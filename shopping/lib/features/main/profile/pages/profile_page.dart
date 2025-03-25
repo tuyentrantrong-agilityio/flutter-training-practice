@@ -57,9 +57,7 @@ class ProfilePage extends StatelessWidget {
             },
           ),
           const ProfileSection(),
-          SizedBox(
-            height: context.sizeHeight(30),
-          ),
+          context.sizedBox(height: 30),
           Expanded(
             child: ListView.separated(
               controller: ScrollController(),

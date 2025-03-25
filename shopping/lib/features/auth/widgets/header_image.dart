@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../const/const.dart';
 import '../../../theme/theme.dart';
 
 class CustomLine extends StatelessWidget {
@@ -28,7 +29,7 @@ class HeaderImage extends StatelessWidget {
       children: [
         const CustomLine(),
         SvgPicture.asset(
-          'assets/images/badge.svg',
+          AppConst.badgeImage,
           width: 64,
           height: 64,
         ),
