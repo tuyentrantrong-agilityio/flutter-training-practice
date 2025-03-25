@@ -1,3 +1,4 @@
+import 'package:cached_query/cached_query.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping/providers/repository_provider.dart';
 import '../const/const.dart';
@@ -14,9 +15,20 @@ class ProductNotifier extends _$ProductNotifier {
   @override
   Future<List<Product>> build() async {
     _productRepository = ref.read(productServiceProvider);
-    final data = await _productRepository.getAllProducts();
+    final data = await getCachedData();
     _products = data;
     return data;
+  }
+
+  Future<List<Product>> getCachedData() async {
+    final query = Query<List<Product>>(
+      key: "products",
+      queryFn: () => _productRepository.getAllProducts(),
+    );
+
+    // Fetch the query result and return the data
+    final queryState = await query.result;
+    return queryState.data ?? [];
   }
 
   void filterProductsByCategory(int categoryId, String name) {
