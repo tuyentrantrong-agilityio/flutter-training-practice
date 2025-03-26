@@ -103,7 +103,7 @@ class HomePage extends HookConsumerWidget {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.7,
+                      childAspectRatio: 0.66,
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index) {
