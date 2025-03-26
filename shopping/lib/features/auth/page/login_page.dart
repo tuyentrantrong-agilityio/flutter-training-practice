@@ -20,7 +20,10 @@ class LogInPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme textTheme = context.textTheme;
+    final labelMedium = textTheme.labelMedium;
+    final bodySmall = textTheme.bodySmall;
     final AppLocalizations l10n = context.intl;
+    final sizedBox30 = context.sizedBox(height: 30);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final isLoading = useState(false);
@@ -55,13 +58,13 @@ class LogInPage extends HookConsumerWidget {
             const HeaderImage(),
             context.sizedBox(height: 40),
             Container(
-              padding: const EdgeInsets.only(left: 30),
+              padding: context.padding(left: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     l10n.hello,
-                    style: textTheme.bodySmall?.copyWith(
+                    style: bodySmall?.copyWith(
                       fontSize: 30,
                       fontWeight: AppFontWeights.regular,
                       height: 1.5,
@@ -71,7 +74,7 @@ class LogInPage extends HookConsumerWidget {
                   const SizedBox(height: 8),
                   Text(
                     l10n.welcomeBack,
-                    style: textTheme.bodySmall?.copyWith(
+                    style: bodySmall?.copyWith(
                       fontSize: 24,
                       height: 1.8,
                     ),
@@ -90,7 +93,7 @@ class LogInPage extends HookConsumerWidget {
                       controller: emailController,
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                   InputField(
                     label: l10n.password,
                     child: ShoppingTextInput.password(
@@ -99,10 +102,10 @@ class LogInPage extends HookConsumerWidget {
                       validator: (value) => value?.validatePassword(context),
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                   Text(
                     l10n.forgotPassword,
-                    style: textTheme.labelMedium,
+                    style: labelMedium,
                   ),
                   Padding(
                     padding: context.padding(vertical: 30, right: 30),
@@ -116,10 +119,10 @@ class LogInPage extends HookConsumerWidget {
                     onTap: () => context.pushRoute(const SignUpRoute()),
                     child: Text(
                       l10n.signUp,
-                      style: textTheme.labelMedium,
+                      style: labelMedium,
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                 ],
               ),
             ),

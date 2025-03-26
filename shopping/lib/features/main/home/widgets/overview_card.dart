@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
+import '../../../../const/const.dart';
 import '../../../../models/product.dart';
 import '../../../../providers/cart_provider.dart';
 import '../../../../router/app_router.gr.dart';
@@ -20,6 +21,7 @@ class OverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
+    final labelSmall = textTheme.labelSmall;
 
     return Center(
       child: Column(
@@ -49,7 +51,7 @@ class OverviewCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SvgPicture.asset(
-                        'assets/images/add_cart.svg',
+                        AppConst.addCartImage,
                         width: 30,
                         height: 30,
                       ),
@@ -62,12 +64,12 @@ class OverviewCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             product.name,
-            style: textTheme.labelSmall?.copyWith(color: AppColors.gray600),
+            style: labelSmall?.copyWith(color: AppColors.gray600),
           ),
           const SizedBox(height: 4),
           Text(
             product.price.toCurrencyFormat,
-            style: textTheme.labelSmall?.copyWith(
+            style: labelSmall?.copyWith(
               fontWeight: AppFontWeights.bold,
               color: AppColors.gray900,
             ),

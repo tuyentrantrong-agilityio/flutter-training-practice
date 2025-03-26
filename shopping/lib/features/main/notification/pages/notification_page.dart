@@ -49,8 +49,8 @@ class NotificationPage extends ConsumerWidget {
                   separatorBuilder: (_, __) => const Divider(),
                 );
               },
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
+              error: (_, __) => const SizedBox.shrink(),
+              loading: () => const ShimmerLoading(),
             ),
           ),
         ],

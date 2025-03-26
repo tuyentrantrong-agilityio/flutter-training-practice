@@ -30,6 +30,7 @@ class CartPage extends HookConsumerWidget {
             data: (data) {
               return Expanded(
                 child: ListView.separated(
+                  controller: ScrollController(),
                   padding: const EdgeInsets.all(16.0),
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -45,9 +46,7 @@ class CartPage extends HookConsumerWidget {
                       quantity: cartItem.quantity,
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
+                  separatorBuilder: (_, __) => const Divider(),
                 ),
               );
             },
@@ -59,6 +58,7 @@ class CartPage extends HookConsumerWidget {
             child: ShoppingButton(
               text: l10n.checkOut,
               onPressed: () {
+                // FIXME: Need to improve function in the future
                 if (cartItemList.value != []) {}
               },
               height: 60,

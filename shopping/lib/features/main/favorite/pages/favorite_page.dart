@@ -58,6 +58,7 @@ class FavoritePage extends HookConsumerWidget {
               data: (products) {
                 productList.value = products;
                 return ListView.separated(
+                  controller: ScrollController(),
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(16.0),
                   itemCount: products.length,

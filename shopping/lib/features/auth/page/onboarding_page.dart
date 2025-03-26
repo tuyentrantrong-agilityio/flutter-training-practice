@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
+import '../../../const/const.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../router/app_router.gr.dart';
 import '../../../shared/widgets/button.dart';
@@ -15,6 +16,7 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
+    final bodyLarge = textTheme.bodyLarge;
 
     return Scaffold(
       body: Container(
@@ -22,7 +24,7 @@ class OnboardingPage extends StatelessWidget {
         padding: context.padding(horizontal: 30),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/onboarding.png"),
+            image: AssetImage(AppConst.onboardingImage),
             fit: BoxFit.cover,
           ),
         ),
@@ -32,12 +34,12 @@ class OnboardingPage extends StatelessWidget {
             context.sizedBox(height: 250),
             Text(
               l10n.makeYour,
-              style: textTheme.bodyLarge,
+              style: bodyLarge,
             ),
             const SizedBox(height: 8),
             Text(
               l10n.homeBeautiful,
-              style: textTheme.bodyLarge?.copyWith(
+              style: bodyLarge?.copyWith(
                 fontWeight: AppFontWeights.bold,
                 fontSize: 30,
               ),

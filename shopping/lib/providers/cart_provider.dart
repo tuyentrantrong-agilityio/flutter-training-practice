@@ -27,10 +27,6 @@ class CartNotifier extends _$CartNotifier {
   Future<List<CartItemViewModel>> getCachedData() async {
     final query = Query<List<CartItemViewModel>>(
       key: "cart_items_$_cartId",
-      config: QueryConfig(
-        refetchDuration: const Duration(seconds: 4),
-        cacheDuration: const Duration(minutes: 5),
-      ),
       queryFn: () => _cartRepository.getCartItemsWithProductDetails(_cartId),
     );
     final queryState = await query.result;

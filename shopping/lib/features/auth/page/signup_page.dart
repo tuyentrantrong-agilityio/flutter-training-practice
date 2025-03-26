@@ -21,6 +21,8 @@ class SignUpPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
+    final labelSmall = textTheme.labelSmall;
+    final sizedBox30 = context.sizedBox(height: 30);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
@@ -59,7 +61,7 @@ class SignUpPage extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HeaderImage(),
-            context.sizedBox(height: 30),
+            sizedBox30,
             Padding(
               padding: context.padding(left: 30),
               child: Text(
@@ -70,7 +72,7 @@ class SignUpPage extends HookConsumerWidget {
                 ),
               ),
             ),
-            context.sizedBox(height: 30),
+            sizedBox30,
             AuthForm(
               child: Column(
                 children: [
@@ -81,7 +83,7 @@ class SignUpPage extends HookConsumerWidget {
                       controller: nameController,
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                   InputField(
                     label: l10n.email,
                     child: ShoppingTextInput.email(
@@ -89,7 +91,7 @@ class SignUpPage extends HookConsumerWidget {
                       controller: emailController,
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                   InputField(
                     label: l10n.password,
                     child: ShoppingTextInput.password(
@@ -98,7 +100,7 @@ class SignUpPage extends HookConsumerWidget {
                       validator: (value) => value?.validatePassword(context),
                     ),
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                   InputField(
                     label: l10n.confirmPassword,
                     child: ShoppingTextInput.password(
@@ -123,15 +125,16 @@ class SignUpPage extends HookConsumerWidget {
                     children: [
                       Text(
                         l10n.alreadyHaveAccount,
-                        style: textTheme.labelSmall
-                            ?.copyWith(fontWeight: AppFontWeights.semiBold),
+                        style: labelSmall?.copyWith(
+                          fontWeight: AppFontWeights.semiBold,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: () => context.pushRoute(const LogInRoute()),
                         child: Text(
                           l10n.signIn,
-                          style: textTheme.labelSmall?.copyWith(
+                          style: labelSmall?.copyWith(
                             fontWeight: AppFontWeights.bold,
                             color: AppColors.gray900,
                           ),
@@ -139,7 +142,7 @@ class SignUpPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  context.sizedBox(height: 30),
+                  sizedBox30,
                 ],
               ),
             ),

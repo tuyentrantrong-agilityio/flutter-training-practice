@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
+import '../../../../const/const.dart';
 import '../../../../theme/theme.dart';
 
 class ProfileSection extends StatelessWidget {
@@ -19,7 +20,7 @@ class ProfileSection extends StatelessWidget {
               height: 80,
               decoration: const ShapeDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/onboarding.png"),
+                  image: AssetImage(AppConst.onboardingImage),
                   fit: BoxFit.cover,
                 ),
                 shape: OvalBorder(),

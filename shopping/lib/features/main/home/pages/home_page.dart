@@ -21,6 +21,7 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme textTheme = context.textTheme;
     final AppLocalizations l10n = context.intl;
+    final bodyMedium = textTheme.bodyMedium;
     final asyncListCategory = ref.watch(categoryNotifierProvider);
     final asyncListProduct = ref.watch(productNotifierProvider);
     return MainLayout(
@@ -35,11 +36,11 @@ class HomePage extends HookConsumerWidget {
                 children: [
                   Text(
                     l10n.makeHome,
-                    style: textTheme.bodyMedium,
+                    style: bodyMedium,
                   ),
                   Text(
                     l10n.beutiful,
-                    style: textTheme.bodyMedium?.copyWith(
+                    style: bodyMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.black100,
                     ),
@@ -102,7 +103,7 @@ class HomePage extends HookConsumerWidget {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.7,
+                      childAspectRatio: 0.66,
                     ),
                     itemCount: data.length,
                     itemBuilder: (context, index) {
