@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping/shared/extensions/category_extension.dart';
 import 'package:shopping/utils/extensions/extension.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../../providers/category_provider.dart';
@@ -24,6 +26,41 @@ class HomePage extends HookConsumerWidget {
     final bodyMedium = textTheme.bodyMedium;
     final asyncListCategory = ref.watch(categoryNotifierProvider);
     final asyncListProduct = ref.watch(productNotifierProvider);
+    final supabase = Supabase.instance.client;
+    Future<void> setFcmToken(String fcmToken) async {
+      final userId = supabase.auth.currentUser?.id;
+      if (userId != null) {
+        await supabase.from('users').update(
+          {'id': userId, 'fcm_token': fcmToken},
+        );
+      }
+    }
+
+    void onTapProduct() {
+      supabase.auth.onAuthStateChange.listen(
+        (event) async {
+          if (event.event == AuthChangeEvent.signedIn) {
+            await FirebaseMessaging.instance.requestPermission();
+            await FirebaseMessaging.instance.getAPNSToken();
+            final fcmToken = await FirebaseMessaging.instance.getToken();
+            if (fcmToken != null) {
+              await setFcmToken(fcmToken);
+            }
+          }
+        },
+      );
+      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
+        await setFcmToken(fcmToken);
+      });
+      FirebaseMessaging.onMessage.listen((payload) {
+        final notification = payload.notification;
+        if (notification != null) {
+          context
+              .showTextSnackBar('${notification.title} ${notification.body}');
+        }
+      });
+    }
+
     return MainLayout(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
