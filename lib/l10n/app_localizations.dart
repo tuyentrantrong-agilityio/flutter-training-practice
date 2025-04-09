@@ -165,6 +165,12 @@ abstract class AppLocalizations {
   /// **'Forgot Password'**
   String get forgotPassword;
 
+  /// No description provided for @enterPromo.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your promo code'**
+  String get enterPromo;
+
   /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
@@ -326,6 +332,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My orders'**
   String get myOrders;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total:'**
+  String get total;
 
   /// No description provided for @myOrdersDescription.
   ///
