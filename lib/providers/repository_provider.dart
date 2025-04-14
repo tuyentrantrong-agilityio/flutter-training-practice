@@ -6,6 +6,7 @@ import '../services/cart_service.dart';
 import '../services/category_service.dart';
 import '../services/favorite_service.dart';
 import '../services/notification_service.dart';
+import '../services/order_service.dart';
 import '../services/product_service.dart';
 import '../services/profile_service.dart';
 
@@ -37,3 +38,6 @@ ProductRepository productService(ProductServiceRef ref) =>
 @Riverpod(keepAlive: true)
 ProfileRepository profileService(ProfileServiceRef ref) =>
     ProfileRepositoryImpl(ProfileService());
+@Riverpod(keepAlive: true)
+OrderRepository orderService(OrderServiceRef ref) =>
+    OrderRepositoryImpl(OrderService());
