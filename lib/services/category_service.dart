@@ -4,7 +4,6 @@ import '../const/const.dart';
 import '../models/category.dart';
 import 'supabase_init.dart';
 
-
 class CategoryService {
   Future<List<Category>> getAllCategory() async {
     try {

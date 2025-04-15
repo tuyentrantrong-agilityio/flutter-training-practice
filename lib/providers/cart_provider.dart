@@ -1,7 +1,6 @@
 import 'package:cached_query/cached_query.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping/providers/repository_provider.dart';
-import '../models/cart_item.dart';
 import '../models/cart_item_viewmodel.dart';
 import '../models/product.dart';
 import '../repositories/cart_repository.dart';
@@ -52,23 +51,20 @@ class CartNotifier extends _$CartNotifier {
       if (state is AsyncLoading) {
         await future;
       }
-      final existingItem = findCartItem(product.productId!);
-      if (existingItem != null) {
-        // Product already exists, update quantity
-        final updatedItem = existingItem.copyWith(
-          cartItem: existingItem.cartItem.copyWith(
-            quantity:
-                isUpdate ? quantity : existingItem.cartItem.quantity + quantity,
-          ),
+      final index = _cartItems
+          .indexWhere((item) => item.product.productId == product.productId);
+
+      if (index != -1) {
+        _cartItems[index] = CartItemViewModel(
+          quantity: isUpdate ? quantity : _cartItems[index].quantity + quantity,
+          product: product,
         );
-        final index = _cartItems.indexOf(existingItem);
-        _cartItems[index] = updatedItem;
       } else {
         // Product doesn't exist, add to cart
         _cartItems.add(
           CartItemViewModel(
             product: product,
-            cartItem: CartItem(quantity: quantity),
+            quantity: quantity,
           ),
         );
       }
