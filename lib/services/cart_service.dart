@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/cart_item.dart';
 import '../models/cart_item_viewmodel.dart';
 import '../models/product.dart';
 import 'supabase_init.dart';
@@ -29,16 +28,16 @@ class CartService {
     try {
       final response = await supabaseClient
           .from('cart_items')
-          .select('*, products(*)')
+          .select('quantity, products(*)')
           .eq('cart_id', cartId)
           .order('added_at', ascending: true);
 
       final data = response as List<dynamic>;
 
       return data.map((item) {
-        final cartItem = CartItem.fromJson(item);
+        final quantity = item['quantity'];
         final product = Product.fromJson(item['products']);
-        return CartItemViewModel(cartItem: cartItem, product: product);
+        return CartItemViewModel(quantity: quantity, product: product);
       }).toList();
     } catch (e) {
       // Handle get cart items error

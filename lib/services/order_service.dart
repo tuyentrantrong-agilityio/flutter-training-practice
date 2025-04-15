@@ -24,7 +24,7 @@ class OrderService {
         return {
           'order_id': orderId,
           'product_id': cartItem.product.productId,
-          'quantity': cartItem.cartItem.quantity,
+          'quantity': cartItem.quantity,
           'price': cartItem.product.price,
         };
       }).toList();
