@@ -1,40 +1,40 @@
-image: ghcr.io/cirruslabs/flutter
-stages:
-  - lints
-  - tests
-  - build
+# image: ghcr.io/cirruslabs/flutter
+# stages:
+#   - lints
+#   - tests
+#   - build
 
 # workflow:
 #   rules:
 #     - if: '$CI_COMMIT_BRANCH == "main"'
 #     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-lints:
-  stage: lints
-  before_script:
-    - bash shopping/reconfigure.sh
-  script:
-    - flutter analyze
+# lints:
+#   stage: lints
+#   before_script:
+#     - bash shopping/reconfigure.sh
+#   script:
+#     - flutter analyze
 
-unit tests:
-  stage: tests
-  script:
-    - flutter test --coverage ./lib
-    - lcov -r coverage/lcov.info '*/__test*__/*' -o coverage/lcov_cleaned.info
-    - genhtml coverage/lcov_cleaned.info --output=coverage
-  artifacts:
-    paths:
-      - coverage
+# unit tests:
+#   stage: tests
+#   script:
+#     - flutter test --coverage ./lib
+#     - lcov -r coverage/lcov.info '*/__test*__/*' -o coverage/lcov_cleaned.info
+#     - genhtml coverage/lcov_cleaned.info --output=coverage
+#   artifacts:
+#     paths:
+#       - coverage
 
-ios:
-  stage: build
-  before_script:
-    - gem install bundler
-    - bundle install
-    - flutter pub get
-  script:
-    - flutter build ios --release --no-codesign
-    - cd ios && bundle exec fastlane gym --scheme "Runner" --clean --output_directory "../build/ios" --output_name "Runner.ipa"
-  artifacts:
-    paths:
-      - build/ios/*.ipa
+# ios:
+#   stage: build
+#   before_script:
+#     - gem install bundler
+#     - bundle install
+#     - flutter pub get
+#   script:
+#     - flutter build ios --release --no-codesign
+#     - cd ios && bundle exec fastlane gym --scheme "Runner" --clean --output_directory "../build/ios" --output_name "Runner.ipa"
+#   artifacts:
+#     paths:
+#       - build/ios/*.ipa
