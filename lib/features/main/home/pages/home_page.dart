@@ -11,6 +11,7 @@ import '../../../../providers/category_provider.dart';
 import '../../../../providers/product_provider.dart';
 import '../../../../providers/profile_provider.dart';
 import '../../../../router/app_router.gr.dart';
+import '../../../../services/local_notification_service.dart';
 import '../../../../shared/widgets/widget.dart';
 import '../../../../theme/theme.dart';
 import '../widgets/overview_card.dart';
@@ -41,9 +42,10 @@ class HomePage extends HookConsumerWidget {
             FirebaseMessaging.onMessage.listen((payload) {
           final notification = payload.notification;
           if (notification != null) {
-            if (!context.mounted) return;
-            context.showTextSnackBar(
-              '${notification.title}\n${notification.body}',
+            LocalNotificationService().showLocalNotification(
+              id: notification.hashCode,
+              title: notification.title ?? '',
+              body: notification.body ?? '',
             );
           }
         });
