@@ -1,7 +1,9 @@
 import 'package:cached_query/cached_query.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shopping/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'const/const.dart';
 import 'l10n/app_localizations.dart';
@@ -15,6 +17,11 @@ void main() async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   CachedQuery.instance.config(
     config: QueryConfig(
       refetchDuration: const Duration(minutes: 1),

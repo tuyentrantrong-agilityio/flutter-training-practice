@@ -1,16 +1,14 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../repositories/auth_repository.dart';
-import '../repositories/cart_repository.dart';
-import '../repositories/category_repository.dart';
-import '../repositories/favorite_repository.dart';
-import '../repositories/notification_repository.dart';
-import '../repositories/product_repository.dart';
+
+import '../repositories/repository.dart';
 import '../services/auth_service.dart';
 import '../services/cart_service.dart';
 import '../services/category_service.dart';
 import '../services/favorite_service.dart';
 import '../services/notification_service.dart';
+import '../services/order_service.dart';
 import '../services/product_service.dart';
+import '../services/profile_service.dart';
 
 part 'repository_provider.g.dart';
 
@@ -37,3 +35,9 @@ CategoryRepository categoryService(CategoryServiceRef ref) =>
 @Riverpod(keepAlive: true)
 ProductRepository productService(ProductServiceRef ref) =>
     ProductRepositoryImpl(ProductService());
+@Riverpod(keepAlive: true)
+ProfileRepository profileService(ProfileServiceRef ref) =>
+    ProfileRepositoryImpl(ProfileService());
+@Riverpod(keepAlive: true)
+OrderRepository orderService(OrderServiceRef ref) =>
+    OrderRepositoryImpl(OrderService());

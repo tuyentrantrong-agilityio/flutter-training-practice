@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shopping/providers/profile_provider.dart';
 import '../models/user.dart';
 import '../repositories/auth_repository.dart';
 import '../services/storage/storage.dart';
@@ -32,6 +35,20 @@ class AuthNotifier extends _$AuthNotifier {
         final cartId = await ref.read(cartServiceProvider).getCartId(userId);
         UserStorage.setUserId(userId);
         UserStorage.setCartId(cartId);
+        if (Platform.isAndroid) {
+          // Request notification permissions
+          await FirebaseMessaging.instance.requestPermission();
+          // await FirebaseMessaging.instance.getAPNSToken();
+
+          // Get and set FCM token
+          final fcmToken = await FirebaseMessaging.instance.getToken();
+          if (fcmToken != null) {
+            await ref
+                .watch(profileNotifierProvider.notifier)
+                .setFcmToken(fcmToken);
+          }
+        }
+
         state = User(
           username: '',
           email: '',

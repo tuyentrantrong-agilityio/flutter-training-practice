@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shopping/utils/extensions/extension.dart';
 
+import '../../theme/theme.dart';
+
 class ShoppingTextInput extends StatelessWidget {
   final String? initialValue;
   final bool? enabled;
@@ -98,6 +100,27 @@ class ShoppingTextInput extends StatelessWidget {
         ),
       ),
       validator: validator,
+    );
+  }
+
+  factory ShoppingTextInput.promoCode(
+    final BuildContext context, {
+    final TextEditingController? controller,
+    final String? hintText,
+  }) {
+    final labelSmall = context.textTheme.labelSmall?.copyWith(
+      fontSize: 16,
+      color: AppColors.gray400,
+    );
+    return ShoppingTextInput(
+      inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: labelSmall,
+        border: InputBorder.none,
+      ),
+      style: labelSmall,
     );
   }
 

@@ -43,6 +43,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot Password';
 
   @override
+  String get enterPromo => 'Enter your promo code';
+
+  @override
   String get signUp => 'SIGN UP';
 
   @override
@@ -122,6 +125,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myOrders => 'My orders';
+
+  @override
+  String get total => 'Total:';
 
   @override
   String myOrdersDescription(Object count) {

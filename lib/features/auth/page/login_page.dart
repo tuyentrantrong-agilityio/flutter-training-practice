@@ -50,6 +50,8 @@ class LogInPage extends HookConsumerWidget {
     }
 
     return MainLayout(
+      hasScrollView: true,
+      scrollController: ScrollController(),
       body: Form(
         key: formKey,
         child: Column(

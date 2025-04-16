@@ -104,3 +104,4 @@ linux/**
 custom_lint.log
 flutter_01.log
 
+/supabase/functions/service-account.json
