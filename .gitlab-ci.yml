@@ -4,10 +4,10 @@ stages:
   - tests
   - build
 
-workflow:
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+# workflow:
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main"'
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 lints:
   stage: lints
