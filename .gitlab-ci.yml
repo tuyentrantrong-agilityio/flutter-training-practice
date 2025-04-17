@@ -1,4 +1,4 @@
-image: ghcr.io/cirruslabs/flutter:stable  # Image có sẵn Flutter & Dart
+image: ghcr.io/cirruslabs/flutter:stable
 
 stages:
   - patch
