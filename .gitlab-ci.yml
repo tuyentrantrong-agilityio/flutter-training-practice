@@ -20,7 +20,7 @@ patch_android:
     - export PATH="$HOME/.shorebird/bin:$PATH"
     - shorebird --version
     - echo "🔑 Authenticating Shorebird..."
-    - echo "$SHOREBIRD_TOKEN" | shorebird login --no-prompt
+    - echo "$SHOREBIRD_TOKEN" | shorebird login
   script:
     - echo "🚀 Creating patch for Android..."
     - shorebird release android
