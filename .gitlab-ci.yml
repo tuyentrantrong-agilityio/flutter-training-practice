@@ -14,7 +14,6 @@ variables:
 patch_android:
   stage: patch
   before_script:
-    - java -version
     - apt-get update && apt-get install -y curl unzip git
     - echo "📦 Installing Shorebird CLI..."
     - curl --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/shorebirdtech/install/main/install.sh -sSf | bash
@@ -24,5 +23,5 @@ patch_android:
     - echo "$SHOREBIRD_TOKEN" | shorebird login
   script:
     - echo "🚀 Creating patch for Android..."
-    # - shorebird release android
-    # - shorebird patch android
+    - shorebird release android
+    - shorebird patch android
