@@ -1,40 +1,29 @@
-# image: ghcr.io/cirruslabs/flutter
-# stages:
-#   - lints
-#   - tests
-#   - build
+image: ghcr.io/cirruslabs/flutter:stable  # Image có sẵn Flutter & Dart
 
-# workflow:
-#   rules:
-#     - if: '$CI_COMMIT_BRANCH == "main"'
-#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+stages:
+  - patch
 
-# lints:
-#   stage: lints
-#   before_script:
-#     - bash shopping/reconfigure.sh
-#   script:
-#     - flutter analyze
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feature/handle-to-use-shorebird"'
 
-# unit tests:
-#   stage: tests
-#   script:
-#     - flutter test --coverage ./lib
-#     - lcov -r coverage/lcov.info '*/__test*__/*' -o coverage/lcov_cleaned.info
-#     - genhtml coverage/lcov_cleaned.info --output=coverage
-#   artifacts:
-#     paths:
-#       - coverage
+variables:
+  SHOREBIRD_TOKEN: $SHOREBIRD_TOKEN
+  SHOREBIRD_VERSION: stable
 
-# ios:
-#   stage: build
-#   before_script:
-#     - gem install bundler
-#     - bundle install
-#     - flutter pub get
-#   script:
-#     - flutter build ios --release --no-codesign
-#     - cd ios && bundle exec fastlane gym --scheme "Runner" --clean --output_directory "../build/ios" --output_name "Runner.ipa"
-#   artifacts:
-#     paths:
-#       - build/ios/*.ipa
+patch_android:
+  stage: patch
+  before_script:
+    - apt-get update && apt-get install -y curl unzip git
+    - echo "📦 Installing Shorebird CLI..."
+    - curl -s https://raw.githubusercontent.com/shorebirdtech/shorebird/main/install.sh | bash
+    - export PATH="$HOME/.shorebird/bin:$PATH"
+    - shorebird --version
+    - echo "🔑 Authenticating Shorebird..."
+    - echo "$SHOREBIRD_TOKEN" | shorebird login --no-prompt
+  script:
+    - echo "🚀 Creating patch for Android..."
+    - shorebird release android
+    - shorebird patch android
+  only:
+    - main
