@@ -25,5 +25,3 @@ patch_android:
     - echo "🚀 Creating patch for Android..."
     - shorebird release android
     - shorebird patch android
-  only:
-    - main
