@@ -1,7 +1,10 @@
 name: Shorebird Release
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [feature/handle-to-use-shorebird]
+  pull_request:
+    branches: [feature/handle-to-use-shorebird]
 
 env:
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
@@ -26,8 +29,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
