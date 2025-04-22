@@ -21,7 +21,7 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        padding: context.padding(horizontal: 30),
+        padding: context.padding(horizontal: 25),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(AppConst.onboardingImage),
@@ -44,7 +44,7 @@ class OnboardingPage extends StatelessWidget {
                 fontSize: 30,
               ),
             ),
-            context.sizedBox(height: 40),
+            context.sizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(

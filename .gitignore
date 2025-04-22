@@ -105,3 +105,4 @@ custom_lint.log
 flutter_01.log
 
 /supabase/functions/service-account.json
+android/app/.cxx/RelWithDebInfo
