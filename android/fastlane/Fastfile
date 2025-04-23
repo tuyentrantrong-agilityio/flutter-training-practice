@@ -17,14 +17,14 @@ default_platform(:android)
 platform :android do
   desc "Ditrube the app to Firebase App Distribution"
   lane  :deploy_to_firebase do
-    shorebird_release(platform: "android", args: "-- --build-name=1.0.3")
+    shorebird_release(platform: "android",args: "--artifact=apk -- --build-name=1.0.3")
     firebase_app_distribution(
       app: "1:350884632199:android:50ce776b05bf603de74a22", # Replace with your Firebase Android app ID
       groups: "testers",
       release_notes: "This Fastlane Build",
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
-      android_artifact_path: "../build/app/outputs/bundle/release/app-release.aab",
-      android_artifact_type: "AAB",
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      android_artifact_type: "APK",
       debug: true
     )
   end
