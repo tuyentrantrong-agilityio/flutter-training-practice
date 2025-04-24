@@ -44,6 +44,12 @@ jobs:
       - name: Setup .env
         run: cp .env.example .env
 
+      - name: 🔐 Decode Keystore
+        env:
+          UPLOAD_KEYSTORE: ${{ secrets.UPLOAD_KEYSTORE }}
+        run: |
+          echo "${UPLOAD_KEYSTORE}" | base64 -d > android/app/release-key.jks
+
       # - name: 🚀 Shorebird Release
       #   uses: shorebirdtech/shorebird-release@v0
       #   with:
