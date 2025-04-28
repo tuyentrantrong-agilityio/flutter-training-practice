@@ -4,6 +4,25 @@ import '../models/product.dart';
 import 'supabase_init.dart';
 
 class CartService {
+  Future<int> createCart(String userId) async {
+    try {
+      // Create a new cart
+      final response = await supabaseClient
+          .from('carts')
+          .insert({
+            'user_id': userId,
+          })
+          .select('cart_id')
+          .single();
+
+      return response['cart_id'];
+    } catch (e) {
+      // Handle create cart error
+      debugPrint('Create cart error: $e');
+      rethrow;
+    }
+  }
+
   Future<int> getCartId(
     String userId,
   ) async {

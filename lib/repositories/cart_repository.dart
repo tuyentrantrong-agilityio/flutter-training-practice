@@ -3,6 +3,7 @@ import '../services/cart_service.dart';
 
 abstract class CartRepository {
   Future<int> getCartId(String userId);
+  Future<int> createCart(String userId);
   Future<List<CartItemViewModel>> getCartItemsWithProductDetails(int cardId);
   Future<void> addProductToCart(int cartId, int productId, int quantity);
   Future<void> removeProductFromCart(int cartId, int productId);
@@ -17,6 +18,13 @@ class CartRepositoryImpl implements CartRepository {
   final CartService _cartService;
 
   CartRepositoryImpl(this._cartService);
+
+  @override
+  Future<int> createCart(
+    String userId,
+  ) async {
+    return _cartService.createCart(userId);
+  }
 
   @override
   Future<int> getCartId(
