@@ -46,7 +46,6 @@ class OverviewCard extends StatelessWidget {
                       ref
                           .watch(cartNotifierProvider.notifier)
                           .addProductToCart(product: product, quantity: 1);
-                      context.pushRoute(const CartRoute());
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
