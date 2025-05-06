@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,7 +6,6 @@ import 'package:shopping/utils/extensions/extension.dart';
 import '../../../../const/const.dart';
 import '../../../../models/product.dart';
 import '../../../../providers/cart_provider.dart';
-import '../../../../router/app_router.gr.dart';
 import '../../../../theme/theme.dart';
 
 class OverviewCard extends StatelessWidget {
