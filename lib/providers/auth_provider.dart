@@ -104,6 +104,7 @@ class AuthNotifier extends _$AuthNotifier {
         email: '',
         userId: '',
       );
+      FirebaseMessaging.instance.deleteToken();
       await _authService.signOut();
     } catch (e) {
       rethrow;
