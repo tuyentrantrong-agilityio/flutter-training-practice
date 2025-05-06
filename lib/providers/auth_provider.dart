@@ -42,7 +42,7 @@ class AuthNotifier extends _$AuthNotifier {
         if (fcmToken != null) {
           await ref
               .watch(profileNotifierProvider.notifier)
-              .setFcmToken(fcmToken);
+              .setFcmToken(userId, fcmToken);
         }
       }
       state = User(
@@ -104,8 +104,10 @@ class AuthNotifier extends _$AuthNotifier {
         email: '',
         userId: '',
       );
-      FirebaseMessaging.instance.deleteToken();
-      await _authService.signOut();
+      await Future.wait([
+        FirebaseMessaging.instance.deleteToken(),
+        Future.sync(() => _authService.signOut()),
+      ]);
     } catch (e) {
       rethrow;
     }
