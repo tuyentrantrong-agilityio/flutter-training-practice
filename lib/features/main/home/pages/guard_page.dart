@@ -31,7 +31,7 @@ class GuardPage extends ConsumerWidget {
     // Listen to deep links
     ref.listen<AsyncValue<Uri>>(deepLinkProvider, (previous, next) {
       next.whenData((uri) {
-        if (uri.path == '/products/5') {
+        if (uri.path == '/cart') {
           context.pushRoute(const CartRoute());
         } else {
           context.pushRoute(const HomeRoute());
