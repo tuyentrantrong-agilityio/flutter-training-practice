@@ -19,7 +19,6 @@ class AuthNotifier extends _$AuthNotifier {
   @override
   User build() {
     _authService = ref.read(authServiceProvider);
-    fetchUser();
     return const User(
       username: '',
       email: '',
@@ -29,38 +28,28 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> fetchUser() async {
     try {
-      final session = await checkLoginStatus();
-      if (session) {
-        final userId = supabaseClient.auth.currentUser!.id;
-        final cartId = await ref.read(cartServiceProvider).getCartId(userId);
-        UserStorage.setUserId(userId);
-        UserStorage.setCartId(cartId);
-        if (Platform.isAndroid) {
-          // Request notification permissions
-          await FirebaseMessaging.instance.requestPermission();
-          // await FirebaseMessaging.instance.getAPNSToken();
+      final userId = supabaseClient.auth.currentUser!.id;
+      final cartId = await ref.read(cartServiceProvider).getCartId(userId);
+      UserStorage.setUserId(userId);
+      UserStorage.setCartId(cartId);
+      if (Platform.isAndroid) {
+        // Request notification permissions
+        await FirebaseMessaging.instance.requestPermission();
+        // await FirebaseMessaging.instance.getAPNSToken();
 
-          // Get and set FCM token
-          final fcmToken = await FirebaseMessaging.instance.getToken();
-          if (fcmToken != null) {
-            await ref
-                .watch(profileNotifierProvider.notifier)
-                .setFcmToken(fcmToken);
-          }
+        // Get and set FCM token
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken != null) {
+          await ref
+              .watch(profileNotifierProvider.notifier)
+              .setFcmToken(userId, fcmToken);
         }
-
-        state = User(
-          username: '',
-          email: '',
-          userId: userId,
-        );
-      } else {
-        state = const User(
-          username: '',
-          email: '',
-          userId: '',
-        );
       }
+      state = User(
+        username: '',
+        email: '',
+        userId: userId,
+      );
     } catch (e) {
       // Handle error
       state = const User(
@@ -100,7 +89,9 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<bool> checkLoginStatus() async {
     try {
-      return await _authService.checkLoginStatus();
+      final result = await _authService.checkLoginStatus();
+      if (result) fetchUser();
+      return result;
     } catch (e) {
       rethrow;
     }
@@ -113,7 +104,10 @@ class AuthNotifier extends _$AuthNotifier {
         email: '',
         userId: '',
       );
-      await _authService.signOut();
+      await Future.wait([
+        FirebaseMessaging.instance.deleteToken(),
+        Future.sync(() => _authService.signOut()),
+      ]);
     } catch (e) {
       rethrow;
     }

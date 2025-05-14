@@ -18,7 +18,7 @@ class ProfileNotifier extends _$ProfileNotifier {
     return _profileRepository.fetchProfile(_userId);
   }
 
-  Future<void> setFcmToken(String fcmToken) async {
-    await _profileRepository.setFcmToken(_userId, fcmToken);
+  Future<void> setFcmToken(String userId, String fcmToken) async {
+    await _profileRepository.setFcmToken(userId, fcmToken);
   }
 }
