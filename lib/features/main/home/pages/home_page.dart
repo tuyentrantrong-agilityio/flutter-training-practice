@@ -9,7 +9,6 @@ import 'package:shopping/utils/extensions/extension.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../providers/category_provider.dart';
 import '../../../../providers/product_provider.dart';
-import '../../../../providers/profile_provider.dart';
 import '../../../../router/app_router.gr.dart';
 import '../../../../services/local_notification_service.dart';
 import '../../../../shared/widgets/widget.dart';
@@ -28,15 +27,9 @@ class HomePage extends HookConsumerWidget {
     final bodyMedium = textTheme.bodyMedium;
     final asyncListCategory = ref.watch(categoryNotifierProvider);
     final asyncListProduct = ref.watch(productNotifierProvider);
+
     useEffect(
       () {
-        // Listen to FCM token refresh
-        final tokenRefreshSubscription =
-            FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
-          await ref
-              .watch(profileNotifierProvider.notifier)
-              .setFcmToken(fcmToken);
-        });
         // Listen to incoming messages
         final messageSubscription =
             FirebaseMessaging.onMessage.listen((payload) {
@@ -52,7 +45,6 @@ class HomePage extends HookConsumerWidget {
 
         // Cleanup subscriptions when widget is disposed
         return () {
-          tokenRefreshSubscription.cancel();
           messageSubscription.cancel();
         };
       },

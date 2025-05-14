@@ -1,3 +1,4 @@
+import 'package:app_links/app_links.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,12 +7,37 @@ import '../../../../providers/auth_provider.dart';
 import '../../../../router/app_router.gr.dart';
 import '../../../auth/page/onboarding_page.dart';
 
+/// StreamProvider to listen for Deep Links
+final deepLinkProvider = StreamProvider<Uri>((ref) {
+  final appLinks = AppLinks();
+
+  // Listen to deep links through uriLinkStream
+  final stream = appLinks.uriLinkStream;
+
+  // When the provider is disposed, cancel the stream subscription
+  ref.onDispose(() {
+    stream.listen(null).cancel();
+  });
+
+  return stream;
+});
+
 @RoutePage()
 class GuardPage extends ConsumerWidget {
   const GuardPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Listen to deep links
+    ref.listen<AsyncValue<Uri>>(deepLinkProvider, (previous, next) {
+      next.whenData((uri) {
+        if (uri.path == '/cart') {
+          context.pushRoute(const CartRoute());
+        } else {
+          context.pushRoute(const HomeRoute());
+        }
+      });
+    });
     return FutureBuilder<bool>(
       future: ref.read(authNotifierProvider.notifier).checkLoginStatus(),
       builder: (context, snapshot) {

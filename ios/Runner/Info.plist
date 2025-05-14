@@ -33,7 +33,16 @@
 		<string>audio</string>
 		<string>fetch</string>
 		<string>remote-notification</string>
-	</array>
+	</array><key>CFBundleURLTypes</key>
+		<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+			<string>shopping</string>
+			</array>
+		</dict>
+		</array>
+
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

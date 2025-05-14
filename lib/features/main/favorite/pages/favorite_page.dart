@@ -24,7 +24,7 @@ class FavoritePage extends HookConsumerWidget {
 
     return MainLayout(
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ShoppingButton(
           text: l10n.addAllToMyCart,
           isLoading: isLoading.value,

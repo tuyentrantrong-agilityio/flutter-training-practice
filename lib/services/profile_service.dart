@@ -5,7 +5,6 @@ import '../models/profile.dart';
 
 class ProfileService {
   Future<void> setFcmToken(String userId, String fcmToken) async {
-    print('fcmToken: $fcmToken, userId: $userId');
     await supabaseClient
         .from('profiles')
         .update({'fcm_token': fcmToken}).eq('user_id', userId);

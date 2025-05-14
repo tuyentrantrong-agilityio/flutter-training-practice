@@ -20,12 +20,24 @@ class AuthService {
       );
       final user = response.user;
       if (user != null) {
-        // Update user information in the users table
+        // Insert user information into the 'users' table
         await supabaseClient.from('users').insert({
           'user_id': user.id,
           'email': email,
           'username': name,
         });
+
+        await Future.wait([
+          // Create an entry in the 'profiles' table for the user
+          supabaseClient.from('profiles').insert({
+            'user_id': user.id,
+          }),
+
+          // Create a cart for the user in the 'cart' table
+          supabaseClient.from('carts').insert({
+            'user_id': user.id,
+          }),
+        ]);
         signIn(email: email, password: password);
       }
       return response;
