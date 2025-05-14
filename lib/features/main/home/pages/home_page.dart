@@ -135,8 +135,9 @@ class HomePage extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       final product = data[index];
                       return GestureDetector(
-                        onTap: () =>
-                            context.pushRoute(ProductRoute(product: product)),
+                        onTap: () => context.pushRoute(
+                          ProductRoute(productId: product.productId!),
+                        ),
                         child: OverviewCard(
                           product: product,
                         ),

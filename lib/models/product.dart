@@ -13,8 +13,8 @@ class Product with _$Product {
     required int stock,
     @JsonKey(name: 'category_id') required int categoryId,
     @JsonKey(name: 'image_url') String? imageUrl,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @JsonKey(name: 'rating') double? rating,
     @JsonKey(name: 'reviews_count') int? reviewsCount,
   }) = _Product;
