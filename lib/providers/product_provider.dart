@@ -40,4 +40,9 @@ class ProductNotifier extends _$ProductNotifier {
         _products.where((product) => product.categoryId == categoryId).toList();
     state = AsyncData(products);
   }
+
+  Future<Product> getProductById(int id) async {
+    // Return the product if found
+    return _productRepository.getProductById(id);
+  }
 }
