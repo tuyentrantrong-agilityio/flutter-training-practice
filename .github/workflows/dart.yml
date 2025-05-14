@@ -2,9 +2,9 @@ name: Shorebird Release
 
 on:
   push:
-    branches: [feature/handle-to-use-shorebird]
+    branches: [feature/handle-to-use-deeplink]
   pull_request:
-    branches: [feature/handle-to-use-shorebird]
+    branches: [feature/handle-to-use-deeplink]
 
 env:
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
