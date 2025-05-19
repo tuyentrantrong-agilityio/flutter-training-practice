@@ -10,19 +10,25 @@ import '../../../../models/product.dart';
 import '../../../../providers/cart_provider.dart';
 import '../../../../providers/product_provider.dart';
 import '../../../../router/app_router.gr.dart';
+import '../../../../services/product_share_service.dart';
+import '../../../../services/storage/storage.dart';
 import '../../../../shared/widgets/widget.dart';
-import '../../../../theme/theme.dart';
+import '../widgets/product_icon_button.dart';
 import '../widgets/product_image_section.dart';
 import '../widgets/product_info_section.dart';
 
 @RoutePage()
 class ProductPage extends HookConsumerWidget {
   final int productId;
-  const ProductPage({super.key, required this.productId});
+  const ProductPage({
+    super.key,
+    required this.productId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AppLocalizations l10n = context.intl;
+    final userId = UserStorage.getUserId();
     final quantity = useState(1);
     // Use useMemoized to prevent unnecessary rebuilds
     final asyncProduct = useMemoized(
@@ -48,30 +54,22 @@ class ProductPage extends HookConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
-                        InkWell(
+                        ProductIconButton(
+                          icon: Icons.bookmark_border_sharp,
                           onTap: () {
                             context.pushRoute(const FavoriteRoute());
                             ref
                                 .read(favoriteNotifierProvider.notifier)
                                 .addFavorite(product);
                           },
-                          child: Container(
-                            width: 60,
-                            height: 60,
-                            padding: const EdgeInsets.all(18),
-                            decoration: ShapeDecoration(
-                              color: AppColors.lightGrey,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.bookmark_border_sharp,
-                              color: AppColors.black100,
-                            ),
-                          ),
                         ),
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 10),
+                        ProductIconButton(
+                          icon: Icons.share,
+                          onTap: () => ProductShareService()
+                              .shareProduct(productId, userId),
+                        ),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: ShoppingButton(
                             text: l10n.addToCart,
