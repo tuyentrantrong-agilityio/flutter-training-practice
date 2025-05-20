@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 import 'package:shopping/const/const.dart';
@@ -40,5 +41,24 @@ class ProductShareService {
         text: 'Here’s a product you might like: $shortLink',
       ),
     );
+  }
+
+  int? handleDeeplink(BuildContext context, Uri uri) {
+    final deepLinkStr = uri.queryParameters['link'];
+    if (deepLinkStr != null) {
+      final deepUri = Uri.tryParse(deepLinkStr);
+      if (deepUri != null &&
+          deepUri.pathSegments.isNotEmpty &&
+          deepUri.pathSegments[0] == 'product' &&
+          deepUri.pathSegments.length > 1) {
+        final productId = int.tryParse(deepUri.pathSegments[1]);
+        if (productId != null) {
+          return productId;
+        }
+      }
+      return null;
+    } else {
+      return null;
+    }
   }
 }
