@@ -41,8 +41,19 @@ class ProductNotifier extends _$ProductNotifier {
     state = AsyncData(products);
   }
 
+  Future<Product> getProductDetail(int id) async {
+    final query = Query<Product>(
+      key: "product-detail-$id",
+      queryFn: () => _productRepository.getProductById(id),
+    );
+
+    // Fetch the query result and return the data
+    final queryState = await query.result;
+    return queryState.data!;
+  }
+
   Future<Product> getProductById(int id) async {
     // Return the product if found
-    return _productRepository.getProductById(id);
+    return getProductDetail(id);
   }
 }
