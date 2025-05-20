@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/auth_provider.dart';
 import '../../../../router/app_router.gr.dart';
+import '../../../../services/product_share_service.dart';
 import '../../../auth/page/onboarding_page.dart';
 
 /// StreamProvider to listen for Deep Links
@@ -22,22 +23,40 @@ final deepLinkProvider = StreamProvider<Uri>((ref) {
   return stream;
 });
 
+/// Handles initial and subsequent deep links.
+final initialDeepLinkProvider = FutureProvider<Uri?>((ref) async {
+  final appLinks = AppLinks();
+  return appLinks.getInitialLink();
+});
+
 @RoutePage()
-class GuardPage extends ConsumerWidget {
+class GuardPage extends HookConsumerWidget {
   const GuardPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Listen to deep links
+    void handleDeeplink(BuildContext context, Uri uri) {
+      final productId = ProductShareService().handleDeeplink(context, uri);
+      if (productId != null) {
+        context.pushRoute(ProductRoute(productId: productId));
+      }
+    }
+
+    // Listen to the initial deep link
+    final initialDeepLink = ref.watch(initialDeepLinkProvider);
+    initialDeepLink.whenData((uri) {
+      if (uri != null) {
+        handleDeeplink(context, uri);
+      }
+    });
+
+    // Listen to subsequent deep links
     ref.listen<AsyncValue<Uri>>(deepLinkProvider, (previous, next) {
       next.whenData((uri) {
-        if (uri.path == '/cart') {
-          context.pushRoute(const CartRoute());
-        } else {
-          context.pushRoute(const HomeRoute());
-        }
+        handleDeeplink(context, uri);
       });
     });
+
     return FutureBuilder<bool>(
       future: ref.read(authNotifierProvider.notifier).checkLoginStatus(),
       builder: (context, snapshot) {
