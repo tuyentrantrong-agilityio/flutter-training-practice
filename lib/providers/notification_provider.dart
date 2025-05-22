@@ -59,7 +59,8 @@ class NotificationNotifier extends _$NotificationNotifier {
       if (index != -1) {
         final updatedNotification =
             _notifications[index].copyWith(isRead: true);
-        _notifications[index] = updatedNotification;
+        _notifications.removeAt(index);
+        _notifications.add(updatedNotification);
         state = AsyncData(_notifications);
       }
 
