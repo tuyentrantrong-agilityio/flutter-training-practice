@@ -28,7 +28,8 @@ class NotificationService {
           .select()
           .eq('user_id', userId)
           .order('is_read', ascending: true)
-          .order('created_at', ascending: true);
+          .order('created_at', ascending: false)
+          .limit(10);
 
       return (response as List)
           .map((json) => model.Notification.fromJson(json))
