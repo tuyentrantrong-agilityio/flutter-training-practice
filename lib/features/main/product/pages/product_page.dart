@@ -30,6 +30,10 @@ class ProductPage extends HookConsumerWidget {
     final AppLocalizations l10n = context.intl;
     final userId = UserStorage.getUserId();
     final quantity = useState(1);
+    final productFavorited = ref
+        .watch(favoriteNotifierProvider.notifier)
+        .checkFavoriteProduct(productId);
+
     // Use useMemoized to prevent unnecessary rebuilds
     final asyncProduct = useMemoized(
       () =>
@@ -54,15 +58,16 @@ class ProductPage extends HookConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
-                        ProductIconButton(
-                          icon: Icons.bookmark_border_sharp,
-                          onTap: () {
-                            context.pushRoute(const FavoriteRoute());
-                            ref
-                                .read(favoriteNotifierProvider.notifier)
-                                .addFavorite(product);
-                          },
-                        ),
+                        if (!productFavorited)
+                          ProductIconButton(
+                            icon: Icons.bookmark_border_sharp,
+                            onTap: () {
+                              context.pushRoute(const FavoriteRoute());
+                              ref
+                                  .read(favoriteNotifierProvider.notifier)
+                                  .addFavorite(product);
+                            },
+                          ),
                         const SizedBox(width: 10),
                         ProductIconButton(
                           icon: Icons.share,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_query/cached_query.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shopping/providers/repository_provider.dart';
@@ -47,20 +49,32 @@ class CartNotifier extends _$CartNotifier {
     required int quantity,
   }) async {
     try {
-      // Ensure the initial build has been done
+      // Ensure the state has finished loading before proceeding
       if (state is AsyncLoading) {
         await future;
       }
-      final index = _cartItems
+
+      // Find the index of the product in the cart (if it already exists)
+      final existingIndex = _cartItems
           .indexWhere((item) => item.product.productId == product.productId);
 
-      if (index != -1) {
-        _cartItems[index] = CartItemViewModel(
-          quantity: isUpdate ? quantity : _cartItems[index].quantity + quantity,
+      if (existingIndex != -1) {
+        // Product already exists in the cart
+        final currentQuantity = _cartItems[existingIndex].quantity;
+
+        // If not updating and already at max stock, do nothing
+        if (currentQuantity >= product.stock && !isUpdate) return;
+
+        // Calculate the maximum allowed quantity (cannot exceed stock)
+        final maxQuantity = min(currentQuantity + quantity, product.stock);
+
+        // Update cart item: use 'quantity' if updating, otherwise use calculated maxQuantity
+        _cartItems[existingIndex] = CartItemViewModel(
+          quantity: isUpdate ? quantity : maxQuantity,
           product: product,
         );
       } else {
-        // Product doesn't exist, add to cart
+        // Product does not exist in cart, add as a new item
         _cartItems.add(
           CartItemViewModel(
             product: product,
@@ -68,7 +82,11 @@ class CartNotifier extends _$CartNotifier {
           ),
         );
       }
+
+      // Update the cart state
       state = AsyncData(_cartItems);
+
+      // Call API to persist the update on the server
       if (isUpdate) {
         await updateProductQuantity(product.productId!, quantity);
       } else {
@@ -78,17 +96,8 @@ class CartNotifier extends _$CartNotifier {
           quantity,
         );
       }
-      CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
-    } catch (e) {
-      rethrow;
-    }
-  }
 
-  Future<void> removeProductFromCart(int productId) async {
-    try {
-      _cartItems.removeWhere((item) => item.product.productId == productId);
-      state = AsyncData(_cartItems);
-      await _cartRepository.removeProductFromCart(_cartId, productId);
+      // Invalidate cached cart data so it can be refreshed
       CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
     } catch (e) {
       rethrow;
@@ -99,8 +108,15 @@ class CartNotifier extends _$CartNotifier {
     int productId,
     int quantity,
   ) async {
+    await _cartRepository.updateProductQuantity(_cartId, productId, quantity);
+    CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
+  }
+
+  Future<void> removeProductFromCart(int productId) async {
     try {
-      await _cartRepository.updateProductQuantity(_cartId, productId, quantity);
+      _cartItems.removeWhere((item) => item.product.productId == productId);
+      state = AsyncData(_cartItems);
+      await _cartRepository.removeProductFromCart(_cartId, productId);
       CachedQuery.instance.invalidateCache(key: "cart_items_$_cartId");
     } catch (e) {
       rethrow;
