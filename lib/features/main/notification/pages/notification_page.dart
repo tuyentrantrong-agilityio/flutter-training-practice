@@ -34,6 +34,7 @@ class NotificationPage extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final notification = notificationList[index];
                     return NotificationItem(
+                      key: ValueKey(notification.notificationId),
                       title: notification.title ?? '',
                       description: notification.message ?? '',
                       isRead: notification.isRead,

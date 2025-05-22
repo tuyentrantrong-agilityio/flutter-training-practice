@@ -40,7 +40,7 @@ class NotificationItem extends HookWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: Image.asset(
-                  "assets/images/onboarding.png",
+                  AppConst.onboardingImage,
                   width: 90,
                   height: 90,
                   fit: BoxFit.fill,
