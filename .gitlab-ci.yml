@@ -1,0 +1,127 @@
+image: ghcr.io/cirruslabs/flutter
+stages:
+  # - lints
+  # - tests
+  - setup
+  - build
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feature/handle-to-use-deeplink"'
+    # - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+before_script:
+
+# lints:
+#   stage: lints
+#   before_script:
+#     - cp .env.example .env
+#     - bash reconfigure.sh
+#   script:
+#     - flutter analyze
+
+# unit tests:
+#   stage: tests
+#   before_script:
+#     - cp .env.example .env
+#     - flutter pub get
+#     - flutter pub run build_runner build --delete-conflicting-outputs
+#   script:
+#     - flutter test --coverage ./lib
+#     # - lcov -r coverage/lcov.info '*/__test*__/*' -o coverage/lcov_cleaned.info
+#     - genhtml coverage/lcov.info --output=coverage
+#   artifacts:
+#     paths:
+#       - coverage
+
+# ios:
+#   stage: build
+#   before_script:
+#     - gem install bundler
+#     - bundle install
+#     - flutter pub get
+#   script:
+#     - flutter build ios --release --no-codesign
+#     - cd ios && bundle exec fastlane gym --scheme "Runner" --clean --output_directory "../build/ios" --output_name "Runner.ipa"
+#   artifacts:
+#     paths:
+#       - build/ios/*.ipa
+#       -
+setup_and_decode:
+  stage: setup
+  script:
+    # Thiết lập file .env
+    - echo "$ENV_FILE_CONTENT" > .env
+
+    # Giải mã Keystore
+    - echo "${UPLOAD_KEYSTORE}" | base64 -d > android/app/release-key.jks
+
+    # Tạo file key.properties
+    - echo "storeFile=release-key.jks" >> android/key.properties
+    - echo "storePassword=$KEYSTORE_PASSWORD" >> android/key.properties
+    - echo "keyAlias=$KEY_ALIAS" >> android/key.properties
+    - echo "keyPassword=$KEY_PASSWORD" >> android/key.properties
+  variables:
+    ENV_FILE_CONTENT: $ENV_FILE_CONTENT
+    UPLOAD_KEYSTORE: $UPLOAD_KEYSTORE
+    KEYSTORE_PASSWORD: $KEYSTORE_PASSWORD
+    KEY_ALIAS: $KEY_ALIAS
+    KEY_PASSWORD: $KEY_PASSWORD
+
+android:
+  stage: build
+  script:
+    - flutter build apk --release --build-number ${CI_JOB_ID:0:8}
+    - flutter build appbundle --release --build-number ${CI_JOB_ID:0:8}
+    - sudo bundle install
+    - cd android && bundle exec fastlane move_files
+  artifacts:
+    paths:
+      - build/artifacts/
+  tags:
+    - flutter
+# android:
+#   stage: build
+#   before_script:
+#     - apt-get update && apt-get install -y openjdk-11-jdk
+#     - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+#     - export PATH="$JAVA_HOME/bin:$PATH"
+#     - gem install bundler:2.6.6 || echo "Bundler already installed"
+#     - cd android
+#     - if [ ! -f Gemfile ]; then echo 'source "https://rubygems.org"' > Gemfile; fi
+#     - if ! grep -q 'gem "fastlane"' Gemfile; then echo 'gem "fastlane"' >> Gemfile; fi
+#     - if ! grep -q 'gem "fastlane-plugin-firebase_app_distribution"' Gemfile; then echo 'gem "fastlane-plugin-firebase_app_distribution"' >> Gemfile; fi
+#     - bundle install
+
+#   script:
+#     - bundle exec fastlane deploy_to_firebase
+
+#   artifacts:
+#     paths:
+#       - build/artifacts/
+# android:
+#   stage: build
+#   script:
+#     - gem install bundler:2.6.6 || echo "Bundler already installed"
+#     - cd android
+#     - if [ ! -f Gemfile ]; then echo 'source "https://rubygems.org"' > Gemfile; fi
+#     - if ! grep -q 'gem "fastlane"' Gemfile; then echo 'gem "fastlane"' >> Gemfile; fi
+#     - if ! grep -q 'gem "fastlane-plugin-firebase_app_distribution"' Gemfile; then echo 'gem "fastlane-plugin-firebase_app_distribution"' >> Gemfile; fi
+#     - bundle install
+#     - flutter build apk --release --build-number ${CI_JOB_ID:0:8}
+#     - flutter build appbundle --release --build-number ${CI_JOB_ID:0:8}
+#     - sudo bundle install
+#     - bundle exec fastlane move_files
+#   artifacts:
+#     paths:
+#       - build/artifacts/
+
+# playstore:
+#   stage: deploy
+#   dependencies:
+
+#     - android
+#   script:
+#     - cd android && bundle exec fastlane playstore_internal_release
+#   tags:
+#     - flutter

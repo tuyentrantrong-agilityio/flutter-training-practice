@@ -10,7 +10,7 @@ part 'favorite_provider.g.dart';
 class FavoriteNotifier extends _$FavoriteNotifier {
   late final FavoriteRepository _favoriteRepository;
   late String _userId;
-  late List<Product> _favoriteProducts;
+  List<Product> _favoriteProducts = [];
 
   @override
   Future<List<Product>> build() async {
@@ -21,21 +21,12 @@ class FavoriteNotifier extends _$FavoriteNotifier {
     return data;
   }
 
-  Future<void> fetchFavoriteProducts() async {
-    try {
-      _favoriteProducts =
-          await _favoriteRepository.getFavoriteProductsByUserId(_userId);
-      state = AsyncData(_favoriteProducts);
-    } catch (e) {
-      rethrow;
-    }
+  bool checkFavoriteProduct(int productId) {
+    // Check if the product is already in favorites
+    return _favoriteProducts.any((p) => p.productId == productId);
   }
 
   Future<void> addFavorite(Product newProduct) async {
-    // Ensure the initial build has been done
-    if (state is AsyncLoading) {
-      await future;
-    }
     final bool isProductInFavorites = _favoriteProducts.any(
       (existingProduct) => existingProduct.productId == newProduct.productId,
     );
